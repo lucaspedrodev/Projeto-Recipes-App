@@ -6,9 +6,14 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    localStorage.setItem('user', JSON.stringify({ email }));
+  };
+
   return (
     <main>
-      <form>
+      <form onSubmit={ handleSubmit }>
         <input
           type="email"
           value={ email }
