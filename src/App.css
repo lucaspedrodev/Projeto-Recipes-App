@@ -120,6 +120,7 @@
 
 .login-input:focus {
   border: 1px solid #fcc436;
+  color: #41197f;
   outline: #fcc436;
 }
 
