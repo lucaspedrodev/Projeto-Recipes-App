@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const PASSWORD_MIN = 6;
 
-export default function Login() {
+export default function Login(props) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const { history } = props;
+
+    history.push('meals');
     localStorage.setItem('user', JSON.stringify({ email }));
   };
 
@@ -37,3 +41,9 @@ export default function Login() {
     </main>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};

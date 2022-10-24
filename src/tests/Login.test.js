@@ -17,7 +17,7 @@ describe('Testando a tela de login', () => {
   });
 
   test('Se o botão é desabilitado e habilitado quando digitado um email e senha valido', () => {
-    renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
     const inputEmail = screen.getByTestId('email-input');
     const inputPassword = screen.getByTestId('password-input');
     const loginSubmitBtn = screen.getByTestId('login-submit-btn');
@@ -33,5 +33,11 @@ describe('Testando a tela de login', () => {
     userEvent.clear(inputPassword);
     userEvent.type(inputPassword, '1234567');
     expect(loginSubmitBtn.disabled).toBe(false);
+
+    userEvent.click(loginSubmitBtn);
+    const emailLocal = JSON.parse(localStorage.getItem('user'));
+
+    expect(history.location.pathname).toBe('/meals');
+    expect(emailLocal.email).toBe('test@test.com');
   });
 });
