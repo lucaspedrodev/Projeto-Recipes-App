@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+const PASSWORD_MIN = 6;
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
   return (
     <main>
       <form>
-        <input type="email" data-testid="email-input" />
-        <input type="password" data-testid="password-input" />
-        <button type="submit" data-testid="login-submit-btn">Entrar</button>
+        <input
+          type="email"
+          value={ email }
+          onChange={ ({ target: { value } }) => setEmail(value) }
+          data-testid="email-input"
+        />
+        <input
+          type="password"
+          value={ senha }
+          onChange={ ({ target: { value } }) => setSenha(value) }
+          data-testid="password-input"
+        />
+        <button
+          type="submit"
+          disabled={ !(senha.length > PASSWORD_MIN && /\S+@\S+\.\S+/.test(email)) }
+          data-testid="login-submit-btn"
+        >
+          Entrar
+        </button>
       </form>
     </main>
   );
