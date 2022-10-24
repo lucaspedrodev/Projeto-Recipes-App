@@ -7,6 +7,7 @@ import Drink from './Pages/Drink';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import Meals from './Pages/Meals';
 import Profile from './Pages/Profile';
+import Login from './pages/Login';
 
 export default function App() {
   return (
