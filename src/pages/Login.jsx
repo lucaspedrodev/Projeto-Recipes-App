@@ -13,7 +13,15 @@ export default function Login(props) {
     event.preventDefault();
     const { history } = props;
 
-    history.push('meals');
+    history.push('/meals');
+    localStorage.setItem('user', JSON.stringify({ email }));
+  };
+
+  const handleSubmit2 = (event) => {
+    event.preventDefault();
+    const { history } = props;
+
+    history.push('/drinks');
     localStorage.setItem('user', JSON.stringify({ email }));
   };
 
@@ -49,7 +57,17 @@ export default function Login(props) {
         >
           ENTER
         </button>
+        
       </form>
+      <button
+        type="button"
+        disabled={ !(senha.length > PASSWORD_MIN && /\S+@\S+\.\S+/.test(email)) }
+        data-testid="login-submit-btn2"
+        className="login-button"
+        onClick={ handleSubmit2 }
+      >
+        ENTER2
+      </button>
     </main>
   );
 }
