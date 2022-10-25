@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import Login from './pages/Login';
 import Provider from './Context/Provider';
 import DoneRecipes from './Pages/DoneRecipes';
 import Drink from './Pages/Drink';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 import Meals from './Pages/Meals';
 import Profile from './Pages/Profile';
-import Login from './pages/Login';
 
 export default function App() {
   return (
