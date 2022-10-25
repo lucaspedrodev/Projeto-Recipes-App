@@ -19,6 +19,10 @@ function App() {
           <Recipes />
           <Footer />
         </Route>
+        <Route exact path="/profile">
+          <Recipes />
+          <Footer />
+        </Route>
       </Switch>
     </Provider>
   );
