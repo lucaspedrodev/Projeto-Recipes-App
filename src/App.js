@@ -3,11 +3,11 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Login from './pages/Login';
 import Provider from './Context/Provider';
-import DoneRecipes from './Pages/DoneRecipes';
-import Drink from './Pages/Drink';
-import FavoriteRecipes from './Pages/FavoriteRecipes';
-import Meals from './Pages/Meals';
-import Profile from './Pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import Drink from './pages/Drink';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+import Meals from './pages/Meals';
+import Profile from './pages/Profile';
 
 export default function App() {
   return (
