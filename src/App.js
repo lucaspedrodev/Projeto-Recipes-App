@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Recipes from './/Components/Recipes.js'
+import Recipes from './components/Recipes.js'
 import { Route } from 'react-router-dom';
-import Footer from './Components/Footer';
+import Footer from './components/Footer';
 import Provider from './Context/Provider';
 
 function App() {

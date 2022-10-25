@@ -5,37 +5,29 @@ import { useHistory } from 'react-router-dom';
 export default function Footer() {
   const history = useHistory();
 
-  const mealClick = () => {
-    history.push('/meals');
-  };
-
-  const drinkClick = () => {
-    history.push('/drinks');
-  };
-
   return (
     <footer className="fixaFooter" data-testid="footer">
       <button
-        onClick={ drinkClick }
+        onClick={ () => history.push('/drinks') }
         type="button"
         className="left"
       >
         <img
-          data-testid="drinks-bottom-btn"
           src="images/drinkIcon.svg"
           alt="Drink icon"
+          data-testid="drinks-bottom-btn"
         />
       </button>
 
       <button
-        onClick={ mealClick }
+        onClick={ () => history.push('/meals') }
         type="button"
         className="right"
       >
         <img
+          data-testid="meals-bottom-btn"
           src="images/mealIcon.svg"
           alt="Meal icon"
-          data-testid="meals-bottom-btn"
         />
       </button>
     </footer>
