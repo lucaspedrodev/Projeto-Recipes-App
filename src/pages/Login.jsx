@@ -17,14 +17,6 @@ export default function Login(props) {
     localStorage.setItem('user', JSON.stringify({ email }));
   };
 
-  const handleSubmit2 = (event) => {
-    event.preventDefault();
-    const { history } = props;
-
-    history.push('/drinks');
-    localStorage.setItem('user', JSON.stringify({ email }));
-  };
-
   return (
     <main>
       <div className="header-login">
@@ -57,17 +49,8 @@ export default function Login(props) {
         >
           ENTER
         </button>
-        
+
       </form>
-      <button
-        type="button"
-        disabled={ !(senha.length > PASSWORD_MIN && /\S+@\S+\.\S+/.test(email)) }
-        data-testid="login-submit-btn2"
-        className="login-button"
-        onClick={ handleSubmit2 }
-      >
-        ENTER2
-      </button>
     </main>
   );
 }

@@ -45,22 +45,101 @@ class Recipes extends React.Component {
     });
   }
 
+  async handleFilte(st) {
+    const get = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${st}`);
+    const getJson = await get.json();
+    return getJson.meals;
+  }
+
+  async handleFilter({ target }) {
+    const { value } = target;
+    const result1 = await this.handleFilte(value);
+    const results = [];
+    for (let i = 0; i < Number('12'); i += 1) {
+      if (result1[i] !== undefined) {
+        results.push(result1[i]);
+      }
+    }
+    console.log(results);
+    this.setState({
+      meals: results,
+    });
+  }
+
+  async handleFilte2(st) {
+    const get = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${st}`);
+    const getJson = await get.json();
+    return getJson.drinks;
+  }
+
+  async handleFilter2({ target }) {
+    const { value } = target;
+    const result1 = await this.handleFilte2(value);
+    const results = [];
+    for (let i = 0; i < Number('12'); i += 1) {
+      if (result1[i] !== undefined) {
+        results.push(result1[i]);
+      }
+    }
+
+    console.log(results);
+    this.setState({
+      drinks: results,
+    });
+  }
+
+  allFilter = async () => {
+    const result3 = await getMeals();
+    const results = [];
+    for (let i = 0; i < Number('12'); i += 1) {
+      if (result3[i] !== undefined) {
+        results.push(result3[i]);
+      }
+    }
+    this.setState({
+      meals: results,
+    });
+  };
+
+  allFilter2 = async () => {
+    const result3 = await getCocktails();
+    const results = [];
+    for (let i = 0; i < Number('12'); i += 1) {
+      if (result3[i] !== undefined) {
+        results.push(result3[i]);
+      }
+    }
+    this.setState({
+      drinks: results,
+    });
+  };
+
   render() {
     const { meals, drinks, pathName, catM, catD } = this.state;
     console.log(meals);
     if (pathName === '/meals') {
       return (
         <div>
-          {catM.map((element, i) => (
+          <div>
+            {catM.map((element, i) => (
+              <button
+                key={ i }
+                type="button"
+                value={ element.strCategory }
+                data-testid={ `${element.strCategory}-category-filter` }
+                onClick={ (element2) => { this.handleFilter(element2); } }
+              >
+                {element.strCategory}
+              </button>
+            ))}
             <button
-              role='button'
-              key={ i }
               type="button"
-              data-testid={ `${element.strCategory}-category-filter` }
+              data-testid="All-category-filter"
+              onClick={ this.allFilter }
             >
-              {element.strCategory}
+              Todos
             </button>
-          ))}
+          </div>
           {meals.map((element, i) => (
             <div key={ i } data-testid={ `${i}-recipe-card` }>
               <h1 data-testid={ `${i}-card-name` }>{element.strMeal}</h1>
@@ -76,16 +155,26 @@ class Recipes extends React.Component {
     }
     return (
       <div>
-        {catD.map((element, i) => (
+        <div>
+          {catD.map((element, i) => (
+            <button
+              key={ i }
+              type="button"
+              value={ element.strCategory }
+              data-testid={ `${element.strCategory}-category-filter` }
+              onClick={ (element3) => { this.handleFilter2(element3); } }
+            >
+              {element.strCategory}
+            </button>
+          ))}
           <button
-            role='button'
-            key={ i }
             type="button"
-            data-testid={ `${element.strCategory}-category-filter` }
+            data-testid="All-category-filter"
+            onClick={ this.allFilter2 }
           >
-            {element.strCategory}
+            Todos
           </button>
-        ))}
+        </div>
         {
           drinks.map((element, i) => (
             <div key={ i } data-testid={ `${i}-recipe-card` }>
