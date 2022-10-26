@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
+import Footer from './components/Footer';
 import Provider from './Context/Provider';
 import Login from './pages/Login';
 import Recipes from './pages/Recipes';
@@ -10,8 +11,15 @@ function App() {
     <Provider>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/meals" component={ Recipes } />
-        <Route exact path="/drinks" component={ Recipes } />
+        <Route exact path="/drinks">
+          <Footer />
+        </Route>
+        <Route exact path="/meals">
+          <Footer />
+        </Route>
+        <Route exact path="/profile">
+          <Footer />
+        </Route>
       </Switch>
     </Provider>
   );
