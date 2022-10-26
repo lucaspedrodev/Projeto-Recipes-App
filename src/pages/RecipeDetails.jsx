@@ -1,17 +1,17 @@
 // import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Meals from '../components/Meals';
 import Drink from '../components/Drink';
-// import Context from '../Context/Context';
 
 export default function RecipeDetails(props) {
-  // const { typeRecipes } = useContext(Context);
+  const history = useHistory();
 
-  return (
-    <div>
-
+  if (history.location.pathname.includes('meals')) {
+    return (
       <Meals props={ props } />
-      <Drink props={ props } />
-
-    </div>
+    );
+  }
+  return (
+    <Drink props={ props } />
   );
 }

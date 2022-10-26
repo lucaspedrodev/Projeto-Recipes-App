@@ -7,30 +7,28 @@ export default function Meals(props) {
   const [mealsIngredients, setMealsIngredients] = useState([]);
   const [mealMeasure, setMealMeasure] = useState([]);
 
-  const {
-    apiMeal,
-    setApiMeal,
-    // setTypeRecipes,
-  } = useContext(Context);
+  const { apiMeal, setApiMeal } = useContext(Context);
 
   useEffect(() => {
     const requestApi = async () => {
       const { props: { match: { params: { id } } } } = props;
+
       const request = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const response = await request.json();
-      const responseMeals = response;
-      setApiMeal(responseMeals.meals[0]);
-      // setTypeRecipes('meal');
-      setMealsIngredients(Object.entries(Object.entries(responseMeals)[0])
-        .filter((e) => e[0]
-          .includes('strIngredient') && e[1] !== '' && e[1] !== null)
-        .map((e) => e[1]));
-      setMealMeasure(Object.entries(Object.entries(responseMeals)[0])
-        .filter((e) => e[0]
-          .includes('strMeasure') && e[1] !== '' && e[1] !== null)
-        .map((e) => e[1]));
-      setMealVideoId(responseMeals.meals[0].strYoutube.split('=')[1]);
-      console.log(responseMeals);
+      setApiMeal(response.meals[0]);
+
+      const Ingredients = Object.entries(response.meals[0])
+        .filter((e) => e[0].includes('strIngredient') && e[1] !== '' && e[1] !== null)
+        .map((e) => e[1]);
+
+      const Measure = Object.entries(response.meals[0])
+        .filter((e) => e[0].includes('strMeasure') && e[1] !== '' && e[1] !== null)
+        .map((e) => e[1]);
+
+      setMealsIngredients(Ingredients);
+      setMealMeasure(Measure);
+
+      setMealVideoId(response.meals[0].strYoutube.split('=')[1]);
     };
     requestApi();
   }, [setApiMeal, setMealsIngredients, props]);
@@ -41,7 +39,7 @@ export default function Meals(props) {
         src={ apiMeal.strMealThumb }
         alt={ apiMeal.strMeal }
         data-testid="recipe-photo"
-        width="300"
+        className="img"
       />
       <h1 data-testid="recipe-title">
         {apiMeal.strMeal}

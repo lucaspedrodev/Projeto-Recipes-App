@@ -23,3 +23,7 @@ code {
   display: flex;
   justify-content: center;
 }
+
+.img {
+  width: 70%;
+}
