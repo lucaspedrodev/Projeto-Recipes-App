@@ -1,6 +1,6 @@
 .container-recomendation {
   display: flex;
-  overflow: scroll;
+  overflow: auto;
   text-align: center;
 }
 
