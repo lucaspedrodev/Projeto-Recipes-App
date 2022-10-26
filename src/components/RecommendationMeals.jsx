@@ -15,17 +15,25 @@ export default function RecommendationMeals() {
     };
     requestApi();
   }, [setData]);
-  console.log(data);
   return (
     <div className="container-recomendation">
       {data.map((e, index) => (
-        <div key={ index } data-testid={ `${index}-recommendation-card` }>
+        <div
+          key={ index }
+          data-testid={ `${index}-recommendation-card` }
+          className="recommendation-card"
+        >
           <img
             src={ e.strMealThumb }
             alt={ e.strMeal }
             className="img-rec"
           />
-          <p data-testid={ `${index}-recommendation-title` }>{e.strMeal}</p>
+          <p
+            data-testid={ `${index}-recommendation-title` }
+            className="recommendation-title"
+          >
+            {e.strMeal}
+          </p>
         </div>
       ))}
     </div>

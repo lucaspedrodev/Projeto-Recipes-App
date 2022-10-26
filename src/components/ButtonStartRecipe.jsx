@@ -1,0 +1,14 @@
+import React from 'react';
+import './ButtonStartRecipe.css';
+
+export default function ButtonStartRecipe() {
+  return (
+    <button
+      type="button"
+      data-testid="start-recipe-btn"
+      className="start-recipe-btn"
+    >
+      Start Recipe
+    </button>
+  );
+}

@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom';
 import Meals from '../components/Meals';
 import Drink from '../components/Drink';
 import RecommendationMeals from '../components/RecommendationMeals';
-import RecommendationDrink from '../components/recommendationDrink';
+import RecommendationDrink from '../components/RecommendationDrink';
+import ButtonStartRecipe from '../components/ButtonStartRecipe';
 
 export default function RecipeDetails(props) {
   const history = useHistory();
@@ -13,6 +14,7 @@ export default function RecipeDetails(props) {
       <>
         <Meals props={ props } />
         <RecommendationDrink />
+        <ButtonStartRecipe />
       </>
     );
   }
@@ -20,6 +22,7 @@ export default function RecipeDetails(props) {
     <>
       <Drink props={ props } />
       <RecommendationMeals />
+      <ButtonStartRecipe />
     </>
   );
 }

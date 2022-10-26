@@ -1,8 +1,17 @@
 .container-recomendation {
   display: flex;
   overflow: scroll;
+  text-align: center;
+}
+
+.recommendation-card {
+  width: 180px;
 }
 
 .img-rec {
-  width: 175px;
+  width: 100px;
+}
+
+.recommendation-title {
+  width: 180px;
 }
