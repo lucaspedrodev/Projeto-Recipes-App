@@ -1,0 +1,8 @@
+.container-recomendation {
+  display: flex;
+  overflow: scroll;
+}
+
+.img-rec {
+  width: 175px;
+}
