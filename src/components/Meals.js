@@ -10,7 +10,7 @@ export default function Meals(props) {
   const {
     apiMeal,
     setApiMeal,
-    setTypeRecipes,
+    // setTypeRecipes,
   } = useContext(Context);
 
   useEffect(() => {
@@ -19,7 +19,8 @@ export default function Meals(props) {
       const request = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const response = await request.json();
       const responseMeals = response;
-      setApiMeal(responseMeals);
+      setApiMeal(responseMeals.meals[0]);
+      // setTypeRecipes('meal');
       setMealsIngredients(Object.entries(Object.entries(responseMeals)[0])
         .filter((e) => e[0]
           .includes('strIngredient') && e[1] !== '' && e[1] !== null)
@@ -29,10 +30,10 @@ export default function Meals(props) {
           .includes('strMeasure') && e[1] !== '' && e[1] !== null)
         .map((e) => e[1]));
       setMealVideoId(responseMeals.meals[0].strYoutube.split('=')[1]);
-      // setTypeRecipes('meal');
+      console.log(responseMeals);
     };
     requestApi();
-  }, [setApiMeal, setMealsIngredients, props, setTypeRecipes]);
+  }, [setApiMeal, setMealsIngredients, props]);
 
   return (
     <div>

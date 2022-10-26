@@ -9,7 +9,7 @@ export default function Drink(props) {
   const {
     apiDrink,
     setApiDrink,
-    setTypeRecipes,
+    // setTypeRecipes,
   } = useContext(Context);
 
   useEffect(() => {
@@ -18,7 +18,8 @@ export default function Drink(props) {
       const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const response = await request.json();
       const responseDrinks = response;
-      setApiDrink(responseDrinks);
+      setApiDrink(responseDrinks.drinks[0]);
+      // setTypeRecipes('drink');
       setDrinksIngredients(Object.entries(Object.entries(responseDrinks)[0])
         .filter((e) => e[0]
           .includes('strIngredient') && e[1] !== '' && e[1] !== null)
@@ -27,10 +28,9 @@ export default function Drink(props) {
         .filter((e) => e[0]
           .includes('strMeasure') && e[1] !== '' && e[1] !== null)
         .map((e) => e[1]));
-      // setTypeRecipes('drink');
     };
     requestApi();
-  }, [setApiDrink, setDrinksIngredients, props, setTypeRecipes]);
+  }, [setApiDrink, setDrinksIngredients, props]);
 
   return (
     <div>
