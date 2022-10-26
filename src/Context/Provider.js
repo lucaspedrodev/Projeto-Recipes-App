@@ -1,10 +1,29 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
 
 export default function Provider({ children }) {
-  const contextValue = useMemo(() => ({}), []);
-  return <Context.Provider value={ contextValue }>{children}</Context.Provider>;
+  const [apiMeal, setApiMeal] = useState([]);
+  const [apiDrink, setApiDrink] = useState([]);
+  const [typeRecipes, setTypeRecipes] = useState('');
+
+  const contextValue = useMemo(() => ({
+    apiMeal,
+    setApiMeal,
+    apiDrink,
+    setApiDrink,
+    typeRecipes,
+    setTypeRecipes,
+  }), [
+    apiMeal,
+    setApiMeal,
+    apiDrink,
+    setApiDrink,
+    typeRecipes,
+    setTypeRecipes,
+  ]);
+
+  return (<Context.Provider value={ contextValue }>{children}</Context.Provider>);
 }
 
 Provider.propTypes = {

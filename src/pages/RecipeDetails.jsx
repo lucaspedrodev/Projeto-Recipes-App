@@ -1,39 +1,17 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import Meals from '../components/Meals';
+import Drink from '../components/Drink';
+import Context from '../Context/Context';
 
 export default function RecipeDetails(props) {
-  useEffect(() => {
-    const requestApi = async () => {
-      const { match: { params: { id } } } = props;
-      try {
-        const request = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-        const response = await request.json();
-        return response;
-      } catch (e) {
-        throw new Error(e.message);
-      }
-    };
-    requestApi();
-  }, [props]);
+  const { typeRecipes } = useContext(Context);
 
-  useEffect(() => {
-    const { match: { params: { id } } } = props;
-    const requestApi = async () => {
-      try {
-        const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-        const response = await request.json();
-        return response;
-      } catch (e) {
-        throw new Error(e.message);
-      }
-    };
-    requestApi();
-  }, [props]);
   return (
-    <div>RecipeDetails</div>
+    <div>
+
+      <Meals props={ props } />
+      <Drink props={ props } />
+
+    </div>
   );
 }
-
-RecipeDetails.propTypes = {
-  match: PropTypes.shape({ params: PropTypes.shape({ id: PropTypes.string }) }),
-}.isRequired;
