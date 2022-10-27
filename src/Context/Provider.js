@@ -36,10 +36,9 @@ export default function Provider({ children }) {
     const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputFIlter}`;
     const response = await fetch(url);
     const mealsData = await response.json();
-    if (mealsData.drinks.length === 1) {
+    if (mealsData.meals.length === 1) {
       history.push(`/meals/${mealsData.meals[0].idMeal}`);
     }
-    console.log(mealsData);
     setIngredientsApi(mealsData);
   };
 
@@ -47,10 +46,9 @@ export default function Provider({ children }) {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputFIlter}`;
     const response = await fetch(url);
     const mealsData = await response.json();
-    if (mealsData.drinks.length === 1) {
+    if (mealsData.meals.length === 1) {
       history.push(`/meals/${mealsData.meals[0].idMeal}`);
     }
-    console.log(mealsData);
     setIngredientsApiName(mealsData);
   };
 
@@ -58,10 +56,9 @@ export default function Provider({ children }) {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputFIlter}`;
     const response = await fetch(url);
     const mealsData = await response.json();
-    if (mealsData.drinks.length === 1) {
+    if (mealsData.meals.length === 1) {
       history.push(`/meals/${mealsData.meals[0].idMeal}`);
     }
-    console.log(mealsData);
     setIngredientsApiFl(mealsData);
   };
 
