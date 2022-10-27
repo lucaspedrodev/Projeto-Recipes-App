@@ -5,9 +5,9 @@ import { act } from 'react-dom/test-utils';
 import App from '../App';
 import renderWithRouter from './utils/renderWithRouter';
 
-describe('', () => {
+describe('Testando a o RecipeDetails', () => {
   jest.setTimeout(30000);
-  test('', async () => {
+  test('Se a api de meals:id é chamado e as recomendações de bebidas', async () => {
     const { history } = renderWithRouter(<App />);
 
     act(() => {
@@ -22,7 +22,7 @@ describe('', () => {
   });
 
   jest.setTimeout(30000);
-  test('', async () => {
+  test('Testando se a api de drinks:id é chamado e as recomendações de comida', async () => {
     const { history } = renderWithRouter(<App />);
 
     act(() => {

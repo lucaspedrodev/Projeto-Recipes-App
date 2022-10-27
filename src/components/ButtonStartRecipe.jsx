@@ -21,7 +21,6 @@ export default function ButtonStartRecipe() {
 
   return (
     <div>
-
       <button
         type="button"
         data-testid="start-recipe-btn"

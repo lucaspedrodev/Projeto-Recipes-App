@@ -1,5 +1,5 @@
 import React from 'react';
-import './footer.css';
+import './Footer.css';
 import { useHistory } from 'react-router-dom';
 
 export default function Footer() {
