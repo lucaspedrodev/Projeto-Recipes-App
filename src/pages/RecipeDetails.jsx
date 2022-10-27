@@ -1,6 +1,6 @@
 // import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import Meals from '../components/Meals';
+import Meal from '../components/Meal';
 import Drink from '../components/Drink';
 
 export default function RecipeDetails(props) {
@@ -8,7 +8,7 @@ export default function RecipeDetails(props) {
 
   if (history.location.pathname.includes('meals')) {
     return (
-      <Meals props={ props } />
+      <Meal props={ props } />
     );
   }
   return (

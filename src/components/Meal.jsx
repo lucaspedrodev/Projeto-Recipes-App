@@ -5,7 +5,7 @@ import './MealsAndDrick.css';
 import RecommendationDrink from './RecommendationDrink';
 import ButtonStartRecipe from './ButtonStartRecipe';
 
-export default function Meals(props) {
+export default function Meal(props) {
   const [mealVideoId, setMealVideoId] = useState('');
   const [mealsIngredients, setMealsIngredients] = useState([]);
   const [mealMeasure, setMealMeasure] = useState([]);
@@ -90,6 +90,6 @@ export default function Meals(props) {
   );
 }
 
-Meals.propTypes = {
+Meal.propTypes = {
   match: PropTypes.shape({ params: PropTypes.shape({ id: PropTypes.string }) }),
 }.isRequired;
