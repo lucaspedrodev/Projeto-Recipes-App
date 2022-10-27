@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context/Context';
+import './MealsAndDrick.css';
+import RecommendationMeals from './RecommendationMeals';
+import ButtonStartRecipe from './ButtonStartRecipe';
 
 export default function Drink(props) {
   const [drinksIngredients, setDrinksIngredients] = useState([]);
@@ -35,33 +38,45 @@ export default function Drink(props) {
   }, [setApiDrink, setDrinksIngredients, props]);
 
   return (
-    <div>
-      <img
-        src={ apiDrink.strDrinkThumb }
-        alt={ apiDrink.strDrink }
-        data-testid="recipe-photo"
-        className="img"
-      />
-      <p data-testid="instructions">
-        {apiDrink.strInstructions}
-      </p>
-      <h1 data-testid="recipe-title">
-        {apiDrink.strDrink}
-      </h1>
-      <h3 data-testid="recipe-category">
-        {apiDrink.strAlcoholic}
-      </h3>
-      {
-        drinksIngredients.map((drinkIngredient, index) => (
-          <p
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ index }
-          >
-            {`${drinkIngredient} - ${drinkMeasure[index]} `}
+    <>
+      <header className="Recipe-header">
+        <img
+          src={ apiDrink.strDrinkThumb }
+          alt={ apiDrink.strDrink }
+          data-testid="recipe-photo"
+          className="recipe-photo"
+        />
+        <h1 data-testid="recipe-title" className="recipe-title">
+          {apiDrink.strDrink}
+        </h1>
+      </header>
+      <main className="Foods-recipe-main">
+        <h3 data-testid="recipe-category" className="recipe-category">
+          {apiDrink.strAlcoholic}
+        </h3>
+        <h1 className="recipe-titles">Ingredients</h1>
+        <div className="Foods-recipe-ingredient">
+          <ul>
+            {drinksIngredients.map((drinkIngredient, index) => (
+              <li
+                data-testid={ `${index}-ingredient-name-and-measure` }
+                key={ index }
+              >
+                {`${drinkIngredient} - ${drinkMeasure[index]} `}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <h1 className="recipe-titles">Instructions</h1>
+        <div className="Foods-recipe-instructions">
+          <p data-testid="instructions">
+            {apiDrink.strInstructions}
           </p>
-        ))
-      }
-    </div>
+        </div>
+        <RecommendationMeals />
+      </main>
+      <ButtonStartRecipe />
+    </>
   );
 }
 

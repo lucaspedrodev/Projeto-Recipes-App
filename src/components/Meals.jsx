@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context/Context';
-import './Meals.css';
+import './MealsAndDrick.css';
+import RecommendationDrink from './RecommendationDrink';
+import ButtonStartRecipe from './ButtonStartRecipe';
 
 export default function Meals(props) {
   const [mealVideoId, setMealVideoId] = useState('');
@@ -36,7 +38,7 @@ export default function Meals(props) {
 
   return (
     <>
-      <header className="Meals-header">
+      <header className="Recipe-header">
         <img
           src={ apiMeal.strMealThumb }
           alt={ apiMeal.strMeal }
@@ -46,11 +48,11 @@ export default function Meals(props) {
         <h1 data-testid="recipe-title" className="recipe-title">
           {apiMeal.strMeal}
         </h1>
+      </header>
+      <main className="Foods-recipe-main">
         <h3 data-testid="recipe-category" className="recipe-category">
           {apiMeal.strCategory}
         </h3>
-      </header>
-      <main className="Foods-recipe-main">
         <h1 className="recipe-titles">Ingredients</h1>
         <div className="Foods-recipe-ingredient">
           <ul>
@@ -73,7 +75,7 @@ export default function Meals(props) {
         <h1 className="recipe-titles">Video</h1>
         <div>
           <iframe
-            width="336"
+            width="100%"
             height="205"
             src={ `https://www.youtube.com/embed/${mealVideoId}?controls=1` }
             title="YouTube video player"
@@ -81,7 +83,9 @@ export default function Meals(props) {
             name="Vídeo"
           />
         </div>
+        <RecommendationDrink />
       </main>
+      <ButtonStartRecipe />
     </>
   );
 }

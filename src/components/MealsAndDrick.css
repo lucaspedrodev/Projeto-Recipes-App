@@ -1,11 +1,10 @@
-.Meals-header {
+.Recipe-header {
   align-items: center;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35));
   background-size: cover;
   display: flex;
   flex-direction: column;
   height: 160px;
-  margin-bottom: 35px;
   z-index: 0;
 }
 
@@ -30,9 +29,9 @@
 .recipe-category {
   letter-spacing: 0.105em;
   line-height: 20px;
-  margin-top: 50px;
+  margin: 20px auto;
   text-align: center;
-  width: 70%;
+  width: 100%;
 }
 
 .recipe-titles {

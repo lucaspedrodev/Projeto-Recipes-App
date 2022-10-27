@@ -1,4 +1,16 @@
 .start-recipe-btn {
+  background: #fcc436;
+  border: none;
+  border-radius: 2px;
   bottom: 0;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  height: 35px;
+  letter-spacing: 0.03em;
+  line-height: 14px;
   position: fixed;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100%;
 }

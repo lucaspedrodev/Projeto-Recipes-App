@@ -1,15 +1,29 @@
 .container-recomendation {
   display: flex;
+  margin-bottom: 60px;
+  margin-top: 20px;
   overflow: auto;
   text-align: center;
+  width: 100%;
 }
 
 .recommendation-card {
+  margin-right: 20px;
   width: 180px;
 }
 
-.img-rec {
-  width: 100px;
+.recommendation-img {
+  border-radius: 5px 5px 0 0;
+  height: 135px;
+  object-fit: cover;
+  width: 163px;
+}
+
+.recommendation-title-container {
+  border: 0.51px solid #b1b1b1;
+  border-radius: 0 0 5px 5px;
+  margin-top: -5px;
+  width: 163px;
 }
 
 .recommendation-title {

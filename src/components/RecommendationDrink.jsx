@@ -26,14 +26,16 @@ export default function RecommendationDrink() {
           <img
             src={ e.strDrinkThumb }
             alt={ e.strDrink }
-            className="img-rec"
+            className="recommendation-img"
           />
-          <p
-            data-testid={ `${index}-recommendation-title` }
-            className="recommendation-title"
-          >
-            {e.strDrink}
-          </p>
+          <div className="recommendation-title-container">
+            <p
+              data-testid={ `${index}-recommendation-title` }
+              className="recommendation-title"
+            >
+              {e.strDrink}
+            </p>
+          </div>
         </div>
       ))}
     </div>
