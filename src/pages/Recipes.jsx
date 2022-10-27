@@ -4,6 +4,7 @@ import getCocktails from '../fetch/drinkAPI';
 import getMeals from '../fetch/mealAPI';
 import getMealCategories from '../fetch/mealsCatAPI';
 import getDrinkCategories from '../fetch/drinkCatAPI';
+import Footer from '../components/Footer';
 
 class Recipes extends React.Component {
   constructor(props) {
@@ -150,6 +151,7 @@ class Recipes extends React.Component {
               />
             </div>
           ))}
+          <Footer />
         </div>
       );
     }
@@ -187,6 +189,7 @@ class Recipes extends React.Component {
             </div>
           ))
         }
+        <Footer />
       </div>
     );
   }
