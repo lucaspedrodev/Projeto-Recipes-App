@@ -20,7 +20,7 @@ describe('Testando a tela de receitas', () => {
 
     expect(img).toBeInTheDocument();
     expect(button).toBeInTheDocument();
-    expect(buttons.length).toBe(Number(6));
+    expect(buttons.length).toBe(Number(8));
 
     userEvent.click(button);
     const img2 = await screen.findByTestId('0-card-name', { name: /beef and mustard pie/i }, { timeout: 2000 });
@@ -49,7 +49,7 @@ describe('Testando a tela de receitas', () => {
 
     expect(img).toBeInTheDocument();
     expect(button).toBeInTheDocument();
-    expect(buttons.length).toBe(Number(6));
+    expect(buttons.length).toBe(Number(8));
 
     userEvent.click(button);
     const img2 = await screen.findByTestId('0-card-name', { name: /3-mile long island iced tea/i }, { timeout: 2000 });

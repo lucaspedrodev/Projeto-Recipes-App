@@ -11,11 +11,16 @@ function App() {
     <Provider>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/drinks" component={ Recipes }>
+        <Route exact path="/drinks">
+          <Recipes />
+          <Footer />
         </Route>
-        <Route exact path="/meals" component={ Recipes }>
+        <Route exact path="/meals">
+          <Recipes />
+          <Footer />
         </Route>
         <Route exact path="/profile">
+          <Footer />
         </Route>
       </Switch>
     </Provider>

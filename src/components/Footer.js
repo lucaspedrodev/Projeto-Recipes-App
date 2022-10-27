@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 export default function Footer() {
   const history = useHistory();
+  console.log(history);
 
   return (
     <footer className="fixaFooter" data-testid="footer">
