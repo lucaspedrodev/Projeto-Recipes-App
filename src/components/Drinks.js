@@ -25,18 +25,6 @@ export default function Drinks() {
     const getJson = await get.json();
     return getJson.drinks;
   };
-
-  const handleFilter2 = async (targets) => {
-    const result1 = await handleFilte2(targets);
-    const results = [];
-    for (let i = 0; i < Number('12'); i += 1) {
-      if (result1[i] !== undefined) {
-        results.push(result1[i]);
-      }
-    }
-    setDrinks(results);
-  };
-
   const allFilter2 = async () => {
     const result3 = await getCocktails();
     const results = [];
@@ -47,28 +35,44 @@ export default function Drinks() {
     }
     setDrinks(results);
   };
+  const handleFilter2 = async (targets) => {
+    const result1 = await handleFilte2(targets.value);
+    const results = [];
+    if (!targets.checked) {
+      await allFilter2();
+    } else {
+      for (let i = 0; i < Number('12'); i += 1) {
+        if (result1[i] !== undefined) {
+          results.push(result1[i]);
+        }
+      }
+      setDrinks(results);
+    }
+  };
 
   return (
     <div>
       <div>
         {drinksCat.map((element, i) => (
-          <button
-            key={ i }
-            type="button"
-            value={ element.strCategory }
-            data-testid={ `${element.strCategory}-category-filter` }
-            onClick={ ({ target: { value } }) => handleFilter2(value) }
-          >
+          <label htmlFor="check" key={ i }>
+            <input
+              key={ i }
+              type="checkbox"
+              value={ element.strCategory }
+              data-testid={ `${element.strCategory}-category-filter` }
+              onClick={ ({ target }) => handleFilter2(target) }
+            />
             {element.strCategory}
-          </button>
+          </label>
         ))}
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => allFilter2() }
-        >
+        <label htmlFor="check">
+          <input
+            type="checkbox"
+            data-testid="All-category-filter"
+            onClick={ () => allFilter2() }
+          />
           Todos
-        </button>
+        </label>
       </div>
       {
         drinks.map((element, i) => (

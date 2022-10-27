@@ -26,17 +26,6 @@ export default function Meals() {
     return getJson.meals;
   };
 
-  const handleFilter = async (values) => {
-    const result1 = await handleFilte(values);
-    const results = [];
-    for (let i = 0; i < Number('12'); i += 1) {
-      if (result1[i] !== undefined) {
-        results.push(result1[i]);
-      }
-    }
-    setMeals(results);
-  };
-
   const allFilter = async () => {
     const result3 = await getMeals();
     const results = [];
@@ -48,27 +37,43 @@ export default function Meals() {
     setMeals(results);
   };
 
+  const handleFilter = async (targets) => {
+    const result1 = await handleFilte(targets.value);
+    const results = [];
+    if (!targets.checked) {
+      await allFilter();
+    } else {
+      for (let i = 0; i < Number('12'); i += 1) {
+        if (result1[i] !== undefined) {
+          results.push(result1[i]);
+        }
+      }
+      setMeals(results);
+    }
+  };
   return (
     <div>
       <div>
         {mealsCat.map((element, i) => (
-          <button
-            key={ i }
-            type="button"
-            value={ element.strCategory }
-            data-testid={ `${element.strCategory}-category-filter` }
-            onClick={ ({ target: { value } }) => handleFilter(value) }
-          >
+          <label htmlFor="check" key={ i }>
+            <input
+              key={ i }
+              type="checkbox"
+              value={ element.strCategory }
+              data-testid={ `${element.strCategory}-category-filter` }
+              onClick={ ({ target }) => handleFilter(target) }
+            />
             {element.strCategory}
-          </button>
+          </label>
         ))}
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => allFilter() }
-        >
+        <label htmlFor="check">
+          <input
+            type="checkbox"
+            data-testid="All-category-filter"
+            onClick={ () => allFilter() }
+          />
           Todos
-        </button>
+        </label>
       </div>
       {meals.map((element, i) => (
         <div key={ i } data-testid={ `${i}-recipe-card` }>
