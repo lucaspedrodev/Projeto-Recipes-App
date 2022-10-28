@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Provider from './Context/Provider';
 import Login from './pages/Login';
 import RecipeDetails from './pages/RecipeDetails';
+import Recipes from './pages/Recipes';
 
 function App() {
   return (
@@ -12,9 +13,11 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route exact path="/drinks">
+          <Recipes />
           <Footer />
         </Route>
         <Route exact path="/meals">
+          <Recipes />
           <Footer />
         </Route>
         <Route exact path="/profile">
