@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import logoRecipes from '../images/logoRecipes.png';
 import tomate from '../images/tomate.png';
-import Footer from '../components/Footer';
 
 const PASSWORD_MIN = 6;
 
@@ -52,7 +51,6 @@ export default function Login() {
         >
           ENTER
         </button>
-        <Footer />
       </form>
     </main>
   );
