@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import getCocktails from '../fetch/drinkAPI';
+import { Link } from 'react-router-dom';
 
 export default function Drinks() {
   const [drinks, setDrinks] = useState([]);
@@ -7,9 +7,9 @@ export default function Drinks() {
 
   useEffect(() => {
     const getCocktail = async () => {
-      const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-      const requestJson = await request.json();
-      setDrinks(requestJson.drinks.slice(0, Number('12')));
+      const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      const reponse = await (await fetch(endPoint)).json();
+      setDrinks(reponse.drinks.slice(0, Number('12')));
     };
     const getDrinkCategories = async () => {
       const request = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
@@ -20,33 +20,19 @@ export default function Drinks() {
     getDrinkCategories();
   }, []);
 
-  const handleFilte2 = async (st) => {
-    const get = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${st}`);
-    const getJson = await get.json();
-    return getJson.drinks;
-  };
   const allFilter2 = async () => {
-    const result3 = await getCocktails();
-    const results = [];
-    for (let i = 0; i < Number('12'); i += 1) {
-      if (result3[i] !== undefined) {
-        results.push(result3[i]);
-      }
-    }
-    setDrinks(results);
+    const endPoin = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const reponse = await (await fetch(endPoin)).json();
+    setDrinks(reponse.drinks.slice(0, Number('12')));
   };
+
   const handleFilter2 = async (targets) => {
-    const result1 = await handleFilte2(targets.value);
-    const results = [];
-    if (!targets.checked) {
-      await allFilter2();
+    const get = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${targets.value}`;
+    const getJson = await (await fetch(get)).json();
+    if (targets.checked) {
+      setDrinks(getJson.drinks.slice(0, Number('12')));
     } else {
-      for (let i = 0; i < Number('12'); i += 1) {
-        if (result1[i] !== undefined) {
-          results.push(result1[i]);
-        }
-      }
-      setDrinks(results);
+      await allFilter2();
     }
   };
 
@@ -76,14 +62,21 @@ export default function Drinks() {
       </div>
       {
         drinks.map((element, i) => (
-          <div key={ i } data-testid={ `${i}-recipe-card` }>
-            <h1 data-testid={ `${i}-card-name` }>{element.strDrink}</h1>
-            <img
-              src={ element.strDrinkThumb }
-              data-testid={ `${i}-card-img` }
-              alt={ element.strDrink }
-            />
-          </div>
+          <Link key={ i } to={ `/drinks/${element.idDrink}` }>
+            <div
+              id={ element.idDrink }
+              key={ i }
+              className="classe"
+              data-testid={ `${i}-recipe-card` }
+            >
+              <h1 data-testid={ `${i}-card-name` }>{element.strDrink}</h1>
+              <img
+                src={ element.strDrinkThumb }
+                data-testid={ `${i}-card-img` }
+                alt={ element.strDrink }
+              />
+            </div>
+          </Link>
         ))
       }
     </div>
