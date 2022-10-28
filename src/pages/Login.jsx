@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import logoRecipes from '../images/logoRecipes.png';
 import tomate from '../images/tomate.png';
 
 const PASSWORD_MIN = 6;
 
-export default function Login(props) {
+export default function Login() {
+  const history = useHistory();
+
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { history } = props;
 
-    history.push('meals');
+    history.push('/meals');
     localStorage.setItem('user', JSON.stringify({ email }));
   };
 
@@ -53,9 +55,3 @@ export default function Login(props) {
     </main>
   );
 }
-
-Login.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
-};
