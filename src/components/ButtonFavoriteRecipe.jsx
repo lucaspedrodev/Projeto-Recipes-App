@@ -8,8 +8,9 @@ import blackHeart from '../images/blackHeartIcon.svg';
 
 export default function ButtonFavoriteRecipe() {
   const [favIcon, setFavIcon] = useState(false);
+  const [currLocalStor, setCurrLocalStor] = useState([]);
+  const [currId, setCurrId] = useState('');
   const { apiMeal, apiDrink, typeRecipe } = useContext(Context);
-  // const { chekFavRecipe } = props;
   const favData = [{
     id: typeRecipe === 'meal' ? apiMeal.idMeal : apiDrink.idDrink,
     type: typeRecipe,
@@ -27,8 +28,9 @@ export default function ButtonFavoriteRecipe() {
       let result = false;
       const local = JSON.parse(localStorage
         .getItem('favoriteRecipes'));
-      console.log(local);
+      setCurrLocalStor(local);
       const idRecipe = history.location.pathname.split('/')[2];
+      setCurrId(idRecipe);
       if (local === null) {
         return result;
       } if (local.some((e) => e.id === idRecipe)) {
@@ -38,7 +40,18 @@ export default function ButtonFavoriteRecipe() {
       }
     };
     getFavStorange();
-  });
+  }, []);
+
+  const favoriteRecipe = () => {
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favData));
+    setFavIcon(true);
+  };
+
+  const unfavorRecipe = () => {
+    const updateLocal = currLocalStor.filter((recipe) => recipe.id !== currId);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(updateLocal));
+    setFavIcon(false);
+  };
 
   if (favIcon === false) {
     return (
@@ -46,9 +59,7 @@ export default function ButtonFavoriteRecipe() {
         <button
           type="button"
           data-testid="favorite-btn"
-          onClick={
-            () => localStorage.setItem('favoriteRecipes', JSON.stringify(favData))
-          }
+          onClick={ () => favoriteRecipe() }
           src={ whiteHeart }
         >
           Favorite
@@ -61,9 +72,7 @@ export default function ButtonFavoriteRecipe() {
       <button
         type="button"
         data-testid="favorite-btn"
-        onClick={
-          () => localStorage.setItem('favoriteRecipes', JSON.stringify(favData))
-        }
+        onClick={ () => unfavorRecipe() }
         src={ blackHeart }
       >
         Favorite
