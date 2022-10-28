@@ -32,7 +32,7 @@ export default function Provider({ children }) {
     setRadioFl(firstLetter);
   };
 
-  const fetchIngredients = async () => {
+  const fetchIngredients = useCallback(async () => {
     const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputFIlter}`;
     const response = await fetch(url);
     const mealsData = await response.json();
@@ -40,9 +40,9 @@ export default function Provider({ children }) {
       history.push(`/meals/${mealsData.meals[0].idMeal}`);
     }
     setIngredientsApi(mealsData);
-  };
+  }, [history, inputFIlter]);
 
-  const fetchIngredientsName = async () => {
+  const fetchIngredientsName = useCallback(async () => {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputFIlter}`;
     const response = await fetch(url);
     const mealsData = await response.json();
@@ -50,9 +50,9 @@ export default function Provider({ children }) {
       history.push(`/meals/${mealsData.meals[0].idMeal}`);
     }
     setIngredientsApiName(mealsData);
-  };
+  }, [history, inputFIlter]);
 
-  const fetchIngredientsFirstLetter = async () => {
+  const fetchIngredientsFirstLetter = useCallback(async () => {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputFIlter}`;
     const response = await fetch(url);
     const mealsData = await response.json();
@@ -60,42 +60,64 @@ export default function Provider({ children }) {
       history.push(`/meals/${mealsData.meals[0].idMeal}`);
     }
     setIngredientsApiFl(mealsData);
-  };
+  }, [history, inputFIlter]);
 
-  const fetchDrinkIngr = async () => {
+  const fetchDrinkIngr = useCallback(async () => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputFIlter}`;
     const response = await fetch(url);
     const drinksData = await response.json();
     if (drinksData.drinks.length === 1) {
       history.push(`/drinks/${drinksData.drinks[0].idDrink}`);
     }
-    console.log(drinksData);
     setIngredientsApi(drinksData);
-  };
+  }, [history, inputFIlter]);
 
-  const fetchDrinkName = async () => {
+  const fetchDrinkName = useCallback(async () => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputFIlter}`;
     const response = await fetch(url);
     const drinksData = await response.json();
     if (drinksData.drinks.length === 1) {
       history.push(`/drinks/${drinksData.drinks[0].idDrink}`);
     }
-    console.log(drinksData);
     setIngredientsApiName(drinksData);
-  };
+  }, [history, inputFIlter]);
 
-  const fetchDrinkFl = async () => {
+  const fetchDrinkFl = useCallback(async () => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputFIlter}`;
     const response = await fetch(url);
     const drinksData = await response.json();
     if (drinksData.drinks.length === 1) {
       history.push(`/drinks/${drinksData.drinks[0].idDrink}`);
     }
-    console.log(drinksData);
     setIngredientsApiFl(drinksData);
-  };
+  }, [history, inputFIlter]);
 
-  const setMealsFilterAPi = () => {
+  const setDrinksFilterAPi = useCallback(() => {
+    const route = history.location.pathname;
+    if (route === '/drinks' && radioIngredient === true) {
+      fetchDrinkIngr();
+    }
+    if (route === '/drinks' && radioName === true) {
+      fetchDrinkName();
+    }
+    if (route === '/drinks' && radioFl === true) {
+      if (inputFIlter.length > 1) {
+        global.alert('Your search must have only 1 (one) character');
+      }
+      fetchDrinkFl();
+    }
+  }, [
+    fetchDrinkFl,
+    fetchDrinkIngr,
+    fetchDrinkName,
+    history.location.pathname,
+    inputFIlter.length,
+    radioFl,
+    radioIngredient,
+    radioName,
+  ]);
+
+  const setMealsFilterAPi = useCallback(() => {
     const route = history.location.pathname;
     if (route === '/meals' && radioIngredient === true) {
       fetchIngredients();
@@ -109,20 +131,18 @@ export default function Provider({ children }) {
       }
       fetchIngredientsFirstLetter();
     }
-
-    if (route === '/drinks' && radioIngredient === true) {
-      fetchDrinkIngr();
-    }
-    if (route === '/drinks' && radioName === true) {
-      fetchDrinkName();
-    }
-    if (route === '/drinks' && radioFl === true) {
-      if (inputFIlter.length > 1) {
-        global.alert('Your search must have only 1 (one) character');
-      }
-      fetchDrinkFl();
-    }
-  };
+    setDrinksFilterAPi();
+  }, [
+    fetchIngredients,
+    fetchIngredientsFirstLetter,
+    fetchIngredientsName,
+    history.location.pathname,
+    inputFIlter.length,
+    radioFl,
+    radioIngredient,
+    radioName,
+    setDrinksFilterAPi,
+  ]);
 
   const contextValue = useMemo(
     () => ({
@@ -137,6 +157,10 @@ export default function Provider({ children }) {
       radioName,
       radioFl,
       setMealsFilterAPi,
+      ingredientsApi,
+      ingredientsApiName,
+      ingredientsApiFl,
+      setDrinksFilterAPi,
     }),
     [
       searchBarAppear,
@@ -146,6 +170,10 @@ export default function Provider({ children }) {
       radioName,
       radioFl,
       setMealsFilterAPi,
+      ingredientsApi,
+      ingredientsApiName,
+      ingredientsApiFl,
+      setDrinksFilterAPi,
     ],
   );
 
