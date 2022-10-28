@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context/Context';
 import './MealsAndDrick.css';
+import './Buttons-favorite-share.css';
+
 import RecommendationMeals from './RecommendationMeals';
 import ButtonStartRecipe from './ButtonStartRecipe';
 import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
@@ -14,6 +16,7 @@ export default function Drink(props) {
   const {
     apiDrink,
     setApiDrink,
+    setTypeRecipe,
   } = useContext(Context);
 
   const { props: { match: { params: { id }, url } } } = props;
@@ -34,9 +37,10 @@ export default function Drink(props) {
 
       setDrinksIngredients(Ingredients);
       setDrinkMeasure(Measure);
+      setTypeRecipe('drink');
     };
     requestApi();
-  }, [setApiDrink, setDrinksIngredients, props, id]);
+  }, [setApiDrink, setDrinksIngredients, props, id, setTypeRecipe]);
 
   return (
     <>
@@ -67,6 +71,10 @@ export default function Drink(props) {
               </li>
             ))}
           </ul>
+          <div className="btns-share-favorite">
+            <ButtonFavoriteRecipe />
+            <ButtonShareRecipe url={ url } />
+          </div>
         </div>
         <h1 className="recipe-titles">Instructions</h1>
         <div className="Foods-recipe-instructions">
@@ -75,10 +83,6 @@ export default function Drink(props) {
           </p>
         </div>
         <RecommendationMeals />
-        <div>
-          <ButtonFavoriteRecipe />
-          <ButtonShareRecipe url={ url } />
-        </div>
       </main>
       <ButtonStartRecipe id={ id } />
     </>

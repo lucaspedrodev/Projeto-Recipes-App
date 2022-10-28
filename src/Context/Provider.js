@@ -5,22 +5,22 @@ import Context from './Context';
 export default function Provider({ children }) {
   const [apiMeal, setApiMeal] = useState([]);
   const [apiDrink, setApiDrink] = useState([]);
-  const [typeRecipes, setTypeRecipes] = useState('');
+  const [typeRecipe, setTypeRecipe] = useState('');
 
   const contextValue = useMemo(() => ({
     apiMeal,
     setApiMeal,
     apiDrink,
     setApiDrink,
-    typeRecipes,
-    setTypeRecipes,
+    typeRecipe,
+    setTypeRecipe,
   }), [
     apiMeal,
     setApiMeal,
     apiDrink,
     setApiDrink,
-    typeRecipes,
-    setTypeRecipes,
+    typeRecipe,
+    setTypeRecipe,
   ]);
 
   return (<Context.Provider value={ contextValue }>{children}</Context.Provider>);

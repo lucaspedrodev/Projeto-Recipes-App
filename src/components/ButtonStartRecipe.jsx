@@ -11,8 +11,9 @@ export default function ButtonStartRecipe(props) {
     let result = false;
     const local = JSON.parse(localStorage
       .getItem('inProgressRecipes')) ?? { meals: {}, drinks: {} };
-    const typeRecipe = history.location.pathname.split('/')[1];
-    if (local[typeRecipe] !== undefined && Object.keys(local[typeRecipe]).includes(id)) {
+    const mealsOrDrink = history.location.pathname.split('/')[1];
+    if (local[mealsOrDrink] !== undefined
+       && Object.keys(local[mealsOrDrink]).includes(id)) {
       result = true;
     }
     return result;

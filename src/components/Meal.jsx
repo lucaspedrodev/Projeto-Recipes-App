@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context/Context';
 import './MealsAndDrick.css';
+import './Buttons-favorite-share.css';
 import RecommendationDrink from './RecommendationDrink';
 import ButtonStartRecipe from './ButtonStartRecipe';
 import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
@@ -12,7 +13,7 @@ export default function Meal(props) {
   const [mealsIngredients, setMealsIngredients] = useState([]);
   const [mealMeasure, setMealMeasure] = useState([]);
 
-  const { apiMeal, setApiMeal } = useContext(Context);
+  const { apiMeal, setApiMeal, setTypeRecipe } = useContext(Context);
   const { props: { match: { params: { id }, url } } } = props;
   useEffect(() => {
     const requestApi = async () => {
@@ -32,9 +33,10 @@ export default function Meal(props) {
       setMealMeasure(Measure);
 
       setMealVideoId(response.meals[0].strYoutube.split('=')[1]);
+      setTypeRecipe('meal');
     };
     requestApi();
-  }, [setApiMeal, setMealsIngredients, id]);
+  }, [setApiMeal, setMealsIngredients, id, setTypeRecipe]);
 
   return (
     <>
@@ -65,6 +67,10 @@ export default function Meal(props) {
               </li>
             ))}
           </ul>
+          <div className="btns-share-favorite">
+            <ButtonFavoriteRecipe />
+            <ButtonShareRecipe url={ url } />
+          </div>
         </div>
         <h1 className="recipe-titles">Instructions</h1>
         <div className="Foods-recipe-instructions">
@@ -84,11 +90,6 @@ export default function Meal(props) {
           />
         </div>
         <RecommendationDrink />
-
-        <ButtonFavoriteRecipe />
-
-        <ButtonShareRecipe url={ url } />
-
       </main>
       <ButtonStartRecipe id={ id } />
     </>

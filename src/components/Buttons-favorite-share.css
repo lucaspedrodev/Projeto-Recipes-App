@@ -1,0 +1,6 @@
+.btns-share-favorite {
+  /* bottom: 10px; */
+  display: flex;
+  flex-direction: row;
+  align-content:center;
+}

@@ -17,6 +17,7 @@ export default function ButtonShareRecipe(props) {
         type="button"
         data-testid="share-btn"
         onClick={ () => handleShareBtn() }
+        // className="favorite-btn"
       >
         Share
       </button>
