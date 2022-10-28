@@ -40,7 +40,7 @@ export default function ButtonFavoriteRecipe() {
       }
     };
     getFavStorange();
-  }, []);
+  }, [history.location.pathname]);
 
   const favoriteRecipe = () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favData));

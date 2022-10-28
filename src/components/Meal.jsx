@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context/Context';
 import './MealsAndDrick.css';
-import './Buttons-favorite-share.css';
 import RecommendationDrink from './RecommendationDrink';
 import ButtonStartRecipe from './ButtonStartRecipe';
 import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
@@ -12,7 +11,6 @@ export default function Meal(props) {
   const [mealVideoId, setMealVideoId] = useState('');
   const [mealsIngredients, setMealsIngredients] = useState([]);
   const [mealMeasure, setMealMeasure] = useState([]);
-  // const [chekFavRecipe, setCheckFavRecipe] = useState(false);
 
   const { apiMeal, setApiMeal, setTypeRecipe } = useContext(Context);
   const { props: { match: { params: { id }, url } } } = props;
