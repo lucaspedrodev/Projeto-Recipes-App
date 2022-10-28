@@ -12,6 +12,7 @@ export default function Meal(props) {
   const [mealVideoId, setMealVideoId] = useState('');
   const [mealsIngredients, setMealsIngredients] = useState([]);
   const [mealMeasure, setMealMeasure] = useState([]);
+  // const [chekFavRecipe, setCheckFavRecipe] = useState(false);
 
   const { apiMeal, setApiMeal, setTypeRecipe } = useContext(Context);
   const { props: { match: { params: { id }, url } } } = props;
@@ -34,6 +35,9 @@ export default function Meal(props) {
 
       setMealVideoId(response.meals[0].strYoutube.split('=')[1]);
       setTypeRecipe('meal');
+      // const local = JSON.parse(localStorage
+      //   .getItem('favoriteRecipes')) ?? [{}];
+      // setCheckFavRecipe(local.some((e) => e.id === response.meals[0].idMeal));
     };
     requestApi();
   }, [setApiMeal, setMealsIngredients, id, setTypeRecipe]);
