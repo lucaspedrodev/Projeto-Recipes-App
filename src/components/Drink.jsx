@@ -4,6 +4,8 @@ import Context from '../Context/Context';
 import './MealsAndDrick.css';
 import RecommendationMeals from './RecommendationMeals';
 import ButtonStartRecipe from './ButtonStartRecipe';
+import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
+import ButtonShareRecipe from './ButtonShareRecipe';
 
 export default function Drink(props) {
   const [drinksIngredients, setDrinksIngredients] = useState([]);
@@ -14,9 +16,8 @@ export default function Drink(props) {
     setApiDrink,
   } = useContext(Context);
 
+  const { props: { match: { params: { id }, url } } } = props;
   useEffect(() => {
-    const { props: { match: { params: { id } } } } = props;
-
     const requestApi = async () => {
       const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
       const response = await request.json();
@@ -35,7 +36,7 @@ export default function Drink(props) {
       setDrinkMeasure(Measure);
     };
     requestApi();
-  }, [setApiDrink, setDrinksIngredients, props]);
+  }, [setApiDrink, setDrinksIngredients, props, id]);
 
   return (
     <>
@@ -74,8 +75,12 @@ export default function Drink(props) {
           </p>
         </div>
         <RecommendationMeals />
+        <div>
+          <ButtonFavoriteRecipe />
+          <ButtonShareRecipe url={ url } />
+        </div>
       </main>
-      <ButtonStartRecipe />
+      <ButtonStartRecipe id={ id } />
     </>
   );
 }

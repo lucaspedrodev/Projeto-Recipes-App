@@ -4,6 +4,8 @@ import Context from '../Context/Context';
 import './MealsAndDrick.css';
 import RecommendationDrink from './RecommendationDrink';
 import ButtonStartRecipe from './ButtonStartRecipe';
+import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
+import ButtonShareRecipe from './ButtonShareRecipe';
 
 export default function Meal(props) {
   const [mealVideoId, setMealVideoId] = useState('');
@@ -11,11 +13,9 @@ export default function Meal(props) {
   const [mealMeasure, setMealMeasure] = useState([]);
 
   const { apiMeal, setApiMeal } = useContext(Context);
-
+  const { props: { match: { params: { id }, url } } } = props;
   useEffect(() => {
     const requestApi = async () => {
-      const { props: { match: { params: { id } } } } = props;
-
       const request = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
       const response = await request.json();
       setApiMeal(response.meals[0]);
@@ -34,7 +34,7 @@ export default function Meal(props) {
       setMealVideoId(response.meals[0].strYoutube.split('=')[1]);
     };
     requestApi();
-  }, [setApiMeal, setMealsIngredients, props]);
+  }, [setApiMeal, setMealsIngredients, id]);
 
   return (
     <>
@@ -84,8 +84,13 @@ export default function Meal(props) {
           />
         </div>
         <RecommendationDrink />
+
+        <ButtonFavoriteRecipe />
+
+        <ButtonShareRecipe url={ url } />
+
       </main>
-      <ButtonStartRecipe />
+      <ButtonStartRecipe id={ id } />
     </>
   );
 }
