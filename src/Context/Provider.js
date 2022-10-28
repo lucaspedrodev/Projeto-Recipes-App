@@ -67,7 +67,7 @@ export default function Provider({ children }) {
     const response = await fetch(url);
     const drinksData = await response.json();
     if (drinksData.drinks.length === 1) {
-      history.push(`/drinks/${resposta.drinks[0].idMeal}`);
+      history.push(`/drinks/${drinksData.drinks[0].idDrink}`);
     }
     console.log(drinksData);
     setIngredientsApi(drinksData);
@@ -78,7 +78,7 @@ export default function Provider({ children }) {
     const response = await fetch(url);
     const drinksData = await response.json();
     if (drinksData.drinks.length === 1) {
-      history.push(`/drinks/${resposta.drinks[0].idMeal}`);
+      history.push(`/drinks/${drinksData.drinks[0].idDrink}`);
     }
     console.log(drinksData);
     setIngredientsApiName(drinksData);
@@ -89,7 +89,7 @@ export default function Provider({ children }) {
     const response = await fetch(url);
     const drinksData = await response.json();
     if (drinksData.drinks.length === 1) {
-      history.push(`/drinks/${resposta.drinks[0].idMeal}`);
+      history.push(`/drinks/${drinksData.drinks[0].idDrink}`);
     }
     console.log(drinksData);
     setIngredientsApiFl(drinksData);
