@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import mealIcon from '../images/mealIcon.svg';
 import './MealsAndDrinks.css';
 import './style/Beef.css';
 import './style/Breakfast.css';
@@ -44,13 +45,16 @@ export default function Meals() {
 
   return (
     <main className="Recipe__main">
+      <div className="Recipe__title__container">
+        <img src={ mealIcon } alt="meal icon" />
+        <h1>MEALS</h1>
+      </div>
       <div className="Recipe__category__container">
         <label htmlFor="all" className="All" data-testid="All-category-filter">
           <input
             type="checkbox"
             onClick={ () => allFilter() }
             id="all"
-            name="category"
           />
           <i />
           <p className="Recipe__category__name">All</p>
@@ -60,12 +64,12 @@ export default function Meals() {
             htmlFor={ element.strCategory }
             key={ i }
             className={ element.strCategory }
+            data-testid={ `${element.strCategory}-category-filter` }
           >
             <input
               key={ i }
               type="checkbox"
               value={ element.strCategory }
-              data-testid={ `${element.strCategory}-category-filter` }
               onClick={ ({ target }) => handleFilter(target) }
               id={ element.strCategory }
               name="category"

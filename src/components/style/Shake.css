@@ -1,4 +1,4 @@
-.Beef {
+.Shake {
   align-items: center;
   color: #797d86;
   display: flex;
@@ -8,12 +8,12 @@
   line-height: 9px;
 }
 
-.Beef > input {
+.Shake > input {
   visibility: hidden;
 }
 
-.Beef > input + i {
-  background: url('./images/beef.svg') no-repeat;
+.Shake > input + i {
+  background: url('./images/shake.svg') no-repeat;
   background-size: cover;
   cursor: pointer;
   display: inline-block;
@@ -21,7 +21,7 @@
   width: 40px;
 }
 
-.Beef > input:checked + i {
-  background: url('./images/beef2.svg') no-repeat;
+.Shake > input:checked + i {
+  background: url('./images/shake2.svg') no-repeat;
   background-size: cover;
 }

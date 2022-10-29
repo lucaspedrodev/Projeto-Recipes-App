@@ -1,4 +1,4 @@
-.Beef {
+.Cocoa {
   align-items: center;
   color: #797d86;
   display: flex;
@@ -8,12 +8,12 @@
   line-height: 9px;
 }
 
-.Beef > input {
+.Cocoa > input {
   visibility: hidden;
 }
 
-.Beef > input + i {
-  background: url('./images/beef.svg') no-repeat;
+.Cocoa > input + i {
+  background: url('./images/Cocoa.svg') no-repeat;
   background-size: cover;
   cursor: pointer;
   display: inline-block;
@@ -21,7 +21,7 @@
   width: 40px;
 }
 
-.Beef > input:checked + i {
-  background: url('./images/beef2.svg') no-repeat;
+.Cocoa > input:checked + i {
+  background: url('./images/Cocoa2.svg') no-repeat;
   background-size: cover;
 }
