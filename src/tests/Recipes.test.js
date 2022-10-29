@@ -82,6 +82,7 @@ describe('Testando a tela de receitas', () => {
     const img6 = await screen.findByTestId('2-card-name', { }, { timeout: 5000 });
     expect(img6).toBeInTheDocument();
   });
+  jest.setTimeout(60000);
   test('test-2', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => {
@@ -89,7 +90,7 @@ describe('Testando a tela de receitas', () => {
     });
     const button = await screen.findByTestId('Beef-category-filter', { }, { timeout: 5000 });
     userEvent.click(button);
-    const img2 = await screen.findByText(/beef and mustard pie/i, { }, { timeout: 5000 });
+    const img2 = await screen.findByText(/beef and mustard pie/i, { }, { timeout: 10000 });
     expect(img2).toBeInTheDocument();
     userEvent.click(button);
     const img6 = await screen.findByText(/corba/i, { }, { timeout: 5000 });

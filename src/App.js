@@ -4,6 +4,7 @@ import './App.css';
 import Footer from './components/Footer';
 import Provider from './Context/Provider';
 import Login from './pages/Login';
+import RecipeDetails from './pages/RecipeDetails';
 import Recipes from './pages/Recipes';
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
         <Route exact path="/profile">
           <Footer />
         </Route>
+        <Route path="/meals/:id" component={ RecipeDetails } />
+        <Route path="/drinks/:id" component={ RecipeDetails } />
       </Switch>
     </Provider>
   );
