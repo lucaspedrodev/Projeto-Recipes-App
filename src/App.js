@@ -11,7 +11,6 @@ import Meals from './pages/Meals';
 import Profile from './pages/Profile';
 import RecipeDetails from './pages/RecipeDetails';
 import Recipes from './pages/Recipes';
-import Profile from './pages/Profile';
 
 export default function App() {
   return (
