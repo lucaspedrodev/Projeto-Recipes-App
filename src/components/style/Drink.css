@@ -1,0 +1,29 @@
+.Drink {
+  align-items: center;
+  color: #797d86;
+  display: flex;
+  flex-flow: wrap-reverse;
+  flex-direction: column;
+  font-size: 9px;
+  font-weight: 300;
+  line-height: 9px;
+  text-align: center;
+}
+
+.Drink > input {
+  visibility: hidden;
+}
+
+.Drink > input + i {
+  background: url('./images/goat.svg') no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+}
+
+.Drink > input:checked + i {
+  background: url('./images/goat2.svg') no-repeat;
+  background-size: cover;
+}
