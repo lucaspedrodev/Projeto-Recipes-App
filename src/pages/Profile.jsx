@@ -19,7 +19,7 @@ export default function Profile() {
 
       </div>
       <div>
-        <button data-testid="profile-favorite-btn" type="button">favorite Recipes</button>
+        <button data-testid="profile-favorite-btn" type="button">Favorite Recipes</button>
 
       </div>
       <div>
