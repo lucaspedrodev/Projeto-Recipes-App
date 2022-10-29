@@ -38,7 +38,6 @@ export default function Provider({ children }) {
   const fetchIngredients = useCallback(async () => {
     const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputFIlter}`;
     const response = await (await fetch(url)).json();
-    console.log(response);
     if (response.meals === null) {
       global.alert(alert);
     } else if (response.meals.length === 1) {
