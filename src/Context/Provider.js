@@ -13,7 +13,10 @@ export default function Provider({ children }) {
   const [ingredientsApi, setIngredientsApi] = useState([]);
   const [ingredientsApiName, setIngredientsApiName] = useState([]);
   const [ingredientsApiFl, setIngredientsApiFl] = useState([]);
+  const [recipesData, setRecipesData] = useState([]);
   const history = useHistory();
+  const MaxRecipes = 12;
+  const alert = 'Sorry, we haven\'t found any recipes for these filters.';
 
   const appearSearchBar = useCallback(() => {
     setSearchBarAppear(!searchBarAppear);
@@ -34,62 +37,82 @@ export default function Provider({ children }) {
 
   const fetchIngredients = useCallback(async () => {
     const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${inputFIlter}`;
-    const response = await fetch(url);
-    const mealsData = await response.json();
-    if (mealsData.meals.length === 1) {
-      history.push(`/meals/${mealsData.meals[0].idMeal}`);
+    const response = await (await fetch(url)).json();
+    console.log(response);
+    if (response.meals === null) {
+      global.alert(alert);
+    } else if (response.meals.length === 1) {
+      history.push(`/meals/${response.meals[0].idMeal}`);
+    } else {
+      setIngredientsApi(response);
+      setRecipesData(response.meals.slice(0, MaxRecipes));
     }
-    setIngredientsApi(mealsData);
   }, [history, inputFIlter]);
 
   const fetchIngredientsName = useCallback(async () => {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${inputFIlter}`;
-    const response = await fetch(url);
-    const mealsData = await response.json();
-    if (mealsData.meals.length === 1) {
-      history.push(`/meals/${mealsData.meals[0].idMeal}`);
+    const response = await (await fetch(url)).json();
+
+    if (response.meals === null) {
+      global.alert(alert);
+    } else if (response.meals.length === 1) {
+      history.push(`/meals/${response.meals[0].idMeal}`);
+    } else {
+      setIngredientsApiName(response);
+      setRecipesData(response.meals.slice(0, MaxRecipes));
     }
-    setIngredientsApiName(mealsData);
   }, [history, inputFIlter]);
 
   const fetchIngredientsFirstLetter = useCallback(async () => {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${inputFIlter}`;
-    const response = await fetch(url);
-    const mealsData = await response.json();
-    if (mealsData.meals.length === 1) {
-      history.push(`/meals/${mealsData.meals[0].idMeal}`);
+    const response = await (await fetch(url)).json();
+    if (response.meals === null) {
+      global.alert(alert);
+    } else if (response.meals.length === 1) {
+      history.push(`/meals/${response.meals[0].idMeal}`);
+    } else {
+      setIngredientsApiFl(response);
+      setRecipesData(response.meals.slice(0, MaxRecipes));
     }
-    setIngredientsApiFl(mealsData);
   }, [history, inputFIlter]);
 
   const fetchDrinkIngr = useCallback(async () => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputFIlter}`;
-    const response = await fetch(url);
-    const drinksData = await response.json();
-    if (drinksData.drinks.length === 1) {
-      history.push(`/drinks/${drinksData.drinks[0].idDrink}`);
+    const response = await (await fetch(url)).json();
+    if (response.drinks === null) {
+      global.alert(alert);
+    } else if (response.drinks.length === 1) {
+      history.push(`/drinks/${response.drinks[0].idDrink}`);
+    } else {
+      setIngredientsApi(response);
+      setRecipesData(response.drinks.slice(0, MaxRecipes));
     }
-    setIngredientsApi(drinksData);
   }, [history, inputFIlter]);
 
   const fetchDrinkName = useCallback(async () => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputFIlter}`;
-    const response = await fetch(url);
-    const drinksData = await response.json();
-    if (drinksData.drinks.length === 1) {
-      history.push(`/drinks/${drinksData.drinks[0].idDrink}`);
+    const response = await (await fetch(url)).json();
+    if (response.drinks === null) {
+      global.alert(alert);
+    } else if (response.drinks.length === 1) {
+      history.push(`/drinks/${response.drinks[0].idDrink}`);
+    } else {
+      setIngredientsApiName(response);
+      setRecipesData(response.drinks.slice(0, MaxRecipes));
     }
-    setIngredientsApiName(drinksData);
   }, [history, inputFIlter]);
 
   const fetchDrinkFl = useCallback(async () => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${inputFIlter}`;
-    const response = await fetch(url);
-    const drinksData = await response.json();
-    if (drinksData.drinks.length === 1) {
-      history.push(`/drinks/${drinksData.drinks[0].idDrink}`);
+    const response = await (await fetch(url)).json();
+    if (response.drinks === null) {
+      global.alert(alert);
+    } else if (response.drinks.length === 1) {
+      history.push(`/drinks/${response.drinks[0].idDrink}`);
+    } else {
+      setIngredientsApiFl(response);
+      setRecipesData(response.drinks.slice(0, MaxRecipes));
     }
-    setIngredientsApiFl(drinksData);
   }, [history, inputFIlter]);
 
   const setDrinksFilterAPi = useCallback(() => {
@@ -161,6 +184,7 @@ export default function Provider({ children }) {
       ingredientsApiName,
       ingredientsApiFl,
       setDrinksFilterAPi,
+      recipesData,
     }),
     [
       searchBarAppear,
@@ -174,6 +198,7 @@ export default function Provider({ children }) {
       ingredientsApiName,
       ingredientsApiFl,
       setDrinksFilterAPi,
+      recipesData,
     ],
   );
 

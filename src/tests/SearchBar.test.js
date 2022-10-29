@@ -5,7 +5,8 @@ import renderWithRouter from './utils/renderWithRouter';
 import App from '../App';
 
 describe('test component SearchBar', () => {
-  test('check if returns endpoints on meals ', () => {
+  jest.setTimeout(60000);
+  test('check if returns endpoints on meals ', async () => {
     const { history } = renderWithRouter(<App />);
 
     act(() => {
@@ -17,34 +18,79 @@ describe('test component SearchBar', () => {
     const buttonSearch = screen.getByTestId('search-top-btn');
     userEvent.click(buttonSearch);
 
-    const searchValue = 'cheese';
+    const searchValueMealName = 'chocolate';
     const searchInput = screen.getByTestId('search-input');
     expect(searchInput).toBeDefined();
-    userEvent.type(searchInput, searchValue);
-    expect(searchInput).toHaveValue(searchValue);
+    userEvent.type(searchInput, searchValueMealName);
+    expect(searchInput).toHaveValue(searchValueMealName);
 
-    const nameSearchInput = screen.getByTestId('name-search-radio');
-    expect(nameSearchInput).toBeDefined();
-
-    const firstLetterSearchInput = screen.getByTestId(
-      'first-letter-search-radio',
-    );
-    expect(firstLetterSearchInput).toBeDefined();
-
-    const ingredientSearchInput = screen.getByTestId('ingredient-search-radio');
-    expect(ingredientSearchInput).toBeDefined();
-    userEvent.click(ingredientSearchInput);
-    expect(ingredientSearchInput).toBeChecked();
+    const nameSearchInputMe = screen.getByTestId('name-search-radio');
+    expect(nameSearchInputMe).toBeDefined();
+    userEvent.click(nameSearchInputMe);
+    expect(nameSearchInputMe).toBeChecked();
 
     const searchButton = screen.getByTestId('exec-search-btn');
     expect(searchButton).toBeDefined();
+    userEvent.click(searchButton);
+    const recipeCard = await screen.findByTestId(
+      '1-recipe-card',
+      {},
+      { timeout: 10000 },
+    );
+    expect(recipeCard).toBeInTheDocument();
+    // --------------------------------------
+    userEvent.clear(searchInput);
 
-    const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchValue}`;
-    expect(global.fetch).toHaveBeenCalled();
-    expect(global.fetch).toHaveBeenLastCalledWith(url);
+    const searchValueIngredient = 'sugar';
+    expect(searchInput).toBeDefined();
+    userEvent.type(searchInput, searchValueIngredient);
+    expect(searchInput).toHaveValue(searchValueIngredient);
+
+    const searchIngredient = screen.getByTestId('ingredient-search-radio');
+    expect(searchIngredient).toBeDefined();
+    userEvent.click(searchIngredient);
+    expect(searchIngredient).toBeChecked();
+    userEvent.click(searchButton);
+
+    expect(recipeCard).toBeInTheDocument();
+    //-------------------------------------------
+    userEvent.clear(searchInput);
+
+    expect(recipeCard).toBeInTheDocument();
+
+    const searchValueMealFirstLetter = 'b';
+    expect(searchInput).toBeDefined();
+    userEvent.type(searchInput, searchValueMealFirstLetter);
+    expect(searchInput).toHaveValue(searchValueMealFirstLetter);
+
+    const nameSearchInput = screen.getByTestId('first-letter-search-radio');
+    expect(nameSearchInput).toBeDefined();
+    userEvent.click(nameSearchInput);
+    expect(nameSearchInput).toBeChecked();
+
+    expect(searchButton).toBeDefined();
+    userEvent.click(searchButton);
+
+    expect(recipeCard).toBeInTheDocument();
+    //-------------------------------------------
+    userEvent.clear(searchInput);
+    expect(searchInput).toBeDefined();
+    userEvent.type(searchInput, 'big mac');
+    expect(searchInput).toHaveValue('big mac');
+
+    expect(nameSearchInputMe).toBeDefined();
+    userEvent.click(nameSearchInputMe);
+    expect(nameSearchInputMe).toBeChecked();
+
+    expect(searchButton).toBeDefined();
+    userEvent.click(searchButton);
+
+    expect(recipeCard).toBeInTheDocument();
   });
-
-  test('check if returns endpoints on drinks ', () => {
+  // meals
+  //---------------------------------------------------
+  // drink
+  test('check if returns endpoints on drinks ', async () => {
     const { history } = renderWithRouter(<App />);
 
     act(() => {
@@ -56,22 +102,59 @@ describe('test component SearchBar', () => {
     const buttonSearch = screen.getByTestId('search-top-btn');
     userEvent.click(buttonSearch);
 
-    const searchValue = 'Margarita';
+    const searchValue = 'g';
     const searchInput = screen.getByTestId('search-input');
     expect(searchInput).toBeDefined();
     userEvent.type(searchInput, searchValue);
     expect(searchInput).toHaveValue(searchValue);
 
-    const ingredientSearchInput = screen.getByTestId('ingredient-search-radio');
-    expect(ingredientSearchInput).toBeDefined();
-    userEvent.click(ingredientSearchInput);
-    expect(ingredientSearchInput).toBeChecked();
+    const searchFirstLetter = screen.getByTestId('first-letter-search-radio');
+    expect(searchFirstLetter).toBeDefined();
+    userEvent.click(searchFirstLetter);
+    expect(searchFirstLetter).toBeChecked();
 
     const searchButton = screen.getByTestId('exec-search-btn');
     expect(searchButton).toBeDefined();
+    userEvent.click(searchButton);
+    const recipeCard = await screen.findByTestId(
+      '1-recipe-card',
+      {},
+      { timeout: 10000 },
+    );
+    expect(recipeCard).toBeInTheDocument();
+    //------------------------------------------
+    userEvent.clear(searchInput);
 
-    const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchValue}`;
-    expect().toHaveBeenCalledTimes(1);
-    expect().toHaveBeenLastCalledWith(url);
+    const searchValueIngredient = 'lemon';
+    expect(searchInput).toBeDefined();
+    userEvent.type(searchInput, searchValueIngredient);
+    expect(searchInput).toHaveValue(searchValueIngredient);
+
+    const searchIngredient = screen.getByTestId('ingredient-search-radio');
+    expect(searchIngredient).toBeDefined();
+    userEvent.click(searchIngredient);
+    expect(searchIngredient).toBeChecked();
+    userEvent.click(searchButton);
+
+    expect(recipeCard).toBeInTheDocument();
+    //---------------------------------------------------------
+    userEvent.clear(searchInput);
+
+    expect(recipeCard).toBeInTheDocument();
+
+    const searchValueDrinkName = 'Margarita';
+    expect(searchInput).toBeDefined();
+    userEvent.type(searchInput, searchValueDrinkName);
+    expect(searchInput).toHaveValue(searchValueDrinkName);
+
+    const nameSearchInput = screen.getByTestId('name-search-radio');
+    expect(nameSearchInput).toBeDefined();
+    userEvent.click(nameSearchInput);
+    expect(nameSearchInput).toBeChecked();
+
+    expect(searchButton).toBeDefined();
+    userEvent.click(searchButton);
+
+    expect(recipeCard).toBeInTheDocument();
   });
 });
