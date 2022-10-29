@@ -14,7 +14,7 @@ describe('Testa o componente Footer', () => {
     });
 
     const drink = screen.getByRole('img', { name: /drink icon/i });
-    const meal = screen.getByRole('img', { name: /meal icon/i });
+    const meal = screen.getByTestId('meals-bottom-btn');
 
     expect(drink).toBeInTheDocument();
     expect(meal).toBeInTheDocument();

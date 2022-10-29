@@ -129,7 +129,7 @@ describe('test component SearchBar', () => {
     const searchInput = screen.getByTestId(testIdSearchInput);
     expect(searchInput).toBeDefined();
     userEvent.type(searchInput, 'big mac');
-    expect(searchInput).toHaveValue('');
+    expect(searchInput).toHaveValue('big mac');
 
     const nameSearchInput = screen.getByTestId(testIdSearchNameRadio);
     expect(nameSearchInput).toBeDefined();
@@ -200,7 +200,7 @@ describe('test component SearchBar', () => {
     const recipeCard = await screen.findByTestId(
       testIdRecipeCard,
       {},
-      { timeout: 10000 },
+      { timeout: 30000 },
     );
     expect(recipeCard).toBeInTheDocument();
   });
@@ -268,7 +268,7 @@ describe('test component SearchBar', () => {
     const recipeCard = await screen.findByTestId(
       testIdRecipeCard,
       {},
-      { timeout: 10000 },
+      { timeout: 30000 },
     );
     expect(recipeCard).toBeInTheDocument();
   });

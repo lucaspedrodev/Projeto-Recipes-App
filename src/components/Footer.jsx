@@ -1,22 +1,20 @@
 import React from 'react';
-import './footer.css';
+import './Footer.css';
 import { useHistory } from 'react-router-dom';
+import drinkIcon from '../images/drinkIcon.svg';
+import mealIcon from '../images/mealIcon.svg';
 
 export default function Footer() {
   const history = useHistory();
 
   return (
-    <footer className="fixaFooter" data-testid="footer">
+    <footer className="footer" data-testid="footer">
       <button
         onClick={ () => history.push('/drinks') }
         type="button"
         className="left"
       >
-        <img
-          src="images/drinkIcon.svg"
-          alt="Drink icon"
-          data-testid="drinks-bottom-btn"
-        />
+        <img src={ drinkIcon } alt="Drink icon" data-testid="drinks-bottom-btn" />
       </button>
 
       <button
@@ -24,11 +22,7 @@ export default function Footer() {
         type="button"
         className="right"
       >
-        <img
-          data-testid="meals-bottom-btn"
-          src="images/mealIcon.svg"
-          alt="Meal icon"
-        />
+        <img data-testid="meals-bottom-btn" src={ mealIcon } alt="Meal icon" />
       </button>
     </footer>
   );

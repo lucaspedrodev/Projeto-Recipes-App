@@ -9,11 +9,15 @@ export default function Provider({ children }) {
   const [radioIngredient, setRadioIngredient] = useState(false);
   const [radioName, setRadioName] = useState(false);
   const [radioFl, setRadioFl] = useState(false);
+  const [apiMeal, setApiMeal] = useState([]);
+  const [apiDrink, setApiDrink] = useState([]);
+  const [typeRecipe, setTypeRecipe] = useState('');
 
   const [ingredientsApi, setIngredientsApi] = useState([]);
   const [ingredientsApiName, setIngredientsApiName] = useState([]);
   const [ingredientsApiFl, setIngredientsApiFl] = useState([]);
   const [recipesData, setRecipesData] = useState([]);
+
   const history = useHistory();
   const MaxRecipes = 12;
   const alert = 'Sorry, we haven\'t found any recipes for these filters.';
@@ -184,6 +188,12 @@ export default function Provider({ children }) {
       ingredientsApiFl,
       setDrinksFilterAPi,
       recipesData,
+      apiMeal,
+      setApiMeal,
+      apiDrink,
+      setApiDrink,
+      typeRecipe,
+      setTypeRecipe,
     }),
     [
       searchBarAppear,
@@ -198,6 +208,12 @@ export default function Provider({ children }) {
       ingredientsApiFl,
       setDrinksFilterAPi,
       recipesData,
+      apiMeal,
+      setApiMeal,
+      apiDrink,
+      setApiDrink,
+      typeRecipe,
+      setTypeRecipe,
     ],
   );
 
