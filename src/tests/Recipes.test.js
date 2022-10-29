@@ -26,11 +26,11 @@ describe('Testando a tela de receitas', () => {
     const img2 = await screen.findByTestId('0-card-name', { }, { timeout: 5000 });
     const img5 = await screen.findAllByRole('heading', undefined, { timeout: 5000 });
     expect(img2).toBeInTheDocument();
-    expect(img5.length).toBe(Number(12));
+    expect(img5.length).toBe(Number(1));
 
     userEvent.click(todos);
     const img6 = await screen.findAllByRole('img', undefined, { timeout: 5000 });
-    expect(img6.length).toBe(Number(14));
+    expect(img6.length).toBe(Number(17));
     expect(img6[0]).toBeInTheDocument();
   });
   it('2-drinks', async () => {
@@ -54,7 +54,7 @@ describe('Testando a tela de receitas', () => {
     const img2 = await screen.findByTestId('0-card-name', { }, { timeout: 5000 });
     const img5 = await screen.findAllByRole('heading', undefined, { timeout: 5000 });
     expect(img2).toBeInTheDocument();
-    expect(img5.length).toBe(Number(12));
+    expect(img5.length).toBe(Number(1));
 
     userEvent.click(button);
     const img4 = await screen.findByTestId('3-card-name', { }, { timeout: 5000 });
@@ -66,7 +66,7 @@ describe('Testando a tela de receitas', () => {
 
     userEvent.click(todos);
     const img6 = await screen.findAllByRole('heading', undefined, { timeout: 5000 });
-    expect(img6.length).toBe(Number(12));
+    expect(img6.length).toBe(Number(1));
     expect(img6[0]).toBeInTheDocument();
   });
   test('test', async () => {

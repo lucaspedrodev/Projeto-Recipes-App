@@ -48,7 +48,6 @@ export default function Drinks() {
     <main className="Recipe__main">
       <div className="Recipe__title__container">
         <img src={ drinkIcon } alt="meal icon" />
-        <h1>DRINKS</h1>
       </div>
       <div className="Recipe__category__container">
         <label htmlFor="Alldrick" className="Alldrick" data-testid="All-category-filter">
