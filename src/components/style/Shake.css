@@ -1,0 +1,27 @@
+.Shake {
+  align-items: center;
+  color: #797d86;
+  display: flex;
+  flex-direction: column;
+  font-size: 9px;
+  font-weight: 300;
+  line-height: 9px;
+}
+
+.Shake > input {
+  visibility: hidden;
+}
+
+.Shake > input + i {
+  background: url('./images/shake.svg') no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+}
+
+.Shake > input:checked + i {
+  background: url('./images/shake2.svg') no-repeat;
+  background-size: cover;
+}

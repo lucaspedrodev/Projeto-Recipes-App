@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import drinkIcon from '../images/mealIcon.svg';
+import './MealsAndDrinks.css';
+import './style/Alldrick.css';
+import './style/Drink.css';
+import './style/Cocktail.css';
+import './style/Shake.css';
+import './style/Other.css';
+import './style/Cocoa.css';
 
 export default function Drinks() {
   const [drinks, setDrinks] = useState([]);
@@ -37,48 +45,67 @@ export default function Drinks() {
   };
 
   return (
-    <div>
-      <div>
+    <main className="Recipe__main">
+      <div className="Recipe__title__container">
+        <img src={ drinkIcon } alt="meal icon" />
+        <h1>DRINKS</h1>
+      </div>
+      <div className="Recipe__category__container">
+        <label htmlFor="Alldrick" className="Alldrick" data-testid="All-category-filter">
+          <input
+            type="checkbox"
+            onClick={ () => allFilter2() }
+            id="Alldrick"
+          />
+          <i />
+          <p className="Recipe__category__name">All</p>
+        </label>
         {drinksCat.map((element, i) => (
-          <label htmlFor="check" key={ i }>
+          <label
+            htmlFor={ element.strCategory }
+            key={ i }
+            data-testid={ `${element.strCategory}-category-filter` }
+            className={ element.strCategory === 'Other/Unknown'
+              ? 'Other' : element.strCategory }
+          >
             <input
               key={ i }
               type="checkbox"
               value={ element.strCategory }
-              data-testid={ `${element.strCategory}-category-filter` }
+              id={ element.strCategory }
               onClick={ ({ target }) => handleFilter2(target) }
             />
-            {element.strCategory}
+            <i />
+            <p className="Recipe__category__name">{element.strCategory}</p>
           </label>
         ))}
-        <label htmlFor="check">
-          <input
-            type="checkbox"
-            data-testid="All-category-filter"
-            onClick={ () => allFilter2() }
-          />
-          Todos
-        </label>
       </div>
-      {
-        drinks.map((element, i) => (
-          <Link key={ i } to={ `/drinks/${element.idDrink}` }>
+      <div className="Recipes__container__card">
+        {drinks.map((element, i) => (
+          <Link
+            key={ i }
+            to={ `/drinks/${element.idDrink}` }
+            className="Recipe__card__name"
+          >
             <div
               id={ element.idDrink }
               key={ i }
-              className="classe"
+              className="Recipe__card"
               data-testid={ `${i}-recipe-card` }
             >
-              <h1 data-testid={ `${i}-card-name` }>{element.strDrink}</h1>
               <img
                 src={ element.strDrinkThumb }
                 data-testid={ `${i}-card-img` }
                 alt={ element.strDrink }
+                className="Recipe__img"
               />
+              <div className="Recipe__card__name__container">
+                <p data-testid={ `${i}-card-name` }>{element.strDrink}</p>
+              </div>
             </div>
           </Link>
-        ))
-      }
-    </div>
+        ))}
+      </div>
+    </main>
   );
 }

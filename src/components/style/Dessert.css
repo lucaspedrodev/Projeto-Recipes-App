@@ -1,0 +1,27 @@
+.Dessert {
+  align-items: center;
+  color: #797d86;
+  display: flex;
+  flex-direction: column;
+  font-size: 9px;
+  font-weight: 300;
+  line-height: 9px;
+}
+
+.Dessert > input {
+  visibility: hidden;
+}
+
+.Dessert > input + i {
+  background: url('./images/dessert.svg') no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+}
+
+.Dessert > input:checked + i {
+  background: url('./images/dessert2.svg') no-repeat;
+  background-size: cover;
+}
