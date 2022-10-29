@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 export default function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const [validEmail, setValidEmail] = useState('');
+
+  useEffect(() => {
+    const callLocal = () => {
+      const email = JSON.parse(localStorage.getItem('user'))
+      ?? { email: '' };
+      setValidEmail(email.email);
+    };
+
+    callLocal();
+  }, []);
+
   const history = useHistory();
 
   const handleBtnDoneRecipes = () => {
@@ -13,9 +24,10 @@ export default function Profile() {
     history.push('/favorite-recipes');
   };
 
-  // const handleBtnLogout = () => {
-  //   history.push('/favorite-recipes');
-  // };
+  const handleBtnLogout = () => {
+    localStorage.clear('user');
+    history.push('/');
+  };
   return (
     <>
       <div>
@@ -23,7 +35,7 @@ export default function Profile() {
           email:
           {' '}
           {
-            email
+            validEmail
           }
         </span>
       </div>
@@ -50,7 +62,14 @@ export default function Profile() {
 
       </div>
       <div>
-        <button type="button" data-testid="profile-logout-btn">Logout</button>
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ () => handleBtnLogout() }
+        >
+          Logout
+
+        </button>
 
       </div>
     </>
