@@ -47,7 +47,6 @@ export default function Meals() {
     <main className="Recipe__main">
       <div className="Recipe__title__container">
         <img src={ mealIcon } alt="meal icon" />
-        <h1>MEALS</h1>
       </div>
       <div className="Recipe__category__container">
         <label htmlFor="all" className="All" data-testid="All-category-filter">

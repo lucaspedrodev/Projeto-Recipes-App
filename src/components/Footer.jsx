@@ -14,11 +14,7 @@ export default function Footer() {
         type="button"
         className="left"
       >
-        <img
-          src={ drinkIcon }
-          alt="Drink icon"
-          data-testid="drinks-bottom-btn"
-        />
+        <img src={ drinkIcon } alt="Drink icon" data-testid="drinks-bottom-btn" />
       </button>
 
       <button
@@ -26,11 +22,7 @@ export default function Footer() {
         type="button"
         className="right"
       >
-        <img
-          data-testid="meals-bottom-btn"
-          src={ mealIcon }
-          alt="Meal icon"
-        />
+        <img data-testid="meals-bottom-btn" src={ mealIcon } alt="Meal icon" />
       </button>
     </footer>
   );
