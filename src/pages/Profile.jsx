@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Header from '../components/Header';
 
 export default function Profile() {
   const [validEmail, setValidEmail] = useState('');
@@ -30,6 +31,7 @@ export default function Profile() {
   };
   return (
     <>
+      <Header />
       <div>
         <span data-testid="profile-email">
           email:
