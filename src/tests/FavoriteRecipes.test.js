@@ -1,0 +1,143 @@
+import React from 'react';
+import { getByTestId, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
+import App from '../App';
+import renderWithRouter from './renderWithRouter';
+
+
+const testid = '0-horizontal-image'
+const testid2 = '0-horizontal-name'
+const favBtnId = 'favorite-btn'
+const fav = '0-horizontal-favorite-btn'
+const share = '0-horizontal-share-btn'
+describe('testando a paginda de receitas favoritas', () => {
+    jest.setTimeout(40000)
+  it('testando se os elemento são renderizados', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+        history.push('/meals/52771');
+      });
+      const btnFavRecipe = await screen.findByTestId(favBtnId, {}, { timeout: 30000 });
+      expect(btnFavRecipe).toBeInTheDocument();
+      expect(btnFavRecipe).toHaveAttribute('src', 'whiteHeartIcon.svg');
+  
+      userEvent.click(btnFavRecipe);
+      expect(btnFavRecipe).toHaveAttribute('src', 'blackHeartIcon.svg');
+  
+      const favLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      expect(favLocal.length).toBe(1);
+      console.log(favLocal);
+    act(() => {
+      history.push('/favorite-recipes');
+    });
+    expect(history.location.pathname).toBe('/favorite-recipes');
+    const filter1 = screen.getByTestId(/filter-by-all-btn/i)
+    
+    const filter3 = screen.getByTestId(/filter-by-drink-btn/i)
+    const img = screen.getByTestId(testid)
+
+    expect(filter1).toBeInTheDocument()
+    
+    expect(filter3).toBeInTheDocument()
+    expect(img).toBeInTheDocument()
+
+    userEvent.click(filter1)
+    const img2 = await screen.findByTestId(testid)
+    expect(img2).toBeInTheDocument()
+    userEvent.click(filter3)
+    expect(img2).not.toBeInTheDocument()
+    const filter2 = screen.getByTestId(/filter-by-meal-btn/i)
+    expect(filter2).toBeInTheDocument()
+    userEvent.click(filter2)
+    
+  });
+  it('testando os botões', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+        history.push('/meals/52771');
+      });
+      const btnFavRecipe = await screen.findByTestId(favBtnId, {}, { timeout: 30000 });
+      expect(btnFavRecipe).toBeInTheDocument();
+      expect(btnFavRecipe).toHaveAttribute('src', 'whiteHeartIcon.svg');
+  
+      userEvent.click(btnFavRecipe);
+      expect(btnFavRecipe).toHaveAttribute('src', 'blackHeartIcon.svg');
+  
+      const favLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      expect(favLocal.length).toBe(1);
+      act(() => {
+        history.push('/favorite-recipes');
+      });
+      const img = screen.getByTestId(testid)
+      const shareBtn = screen.getByTestId(share);
+      expect(shareBtn).toBeInTheDocument();
+      const favBtn = screen.getByTestId(fav);
+      expect(favBtn).toBeInTheDocument();
+      userEvent.click(favBtn);
+      expect(img).not.toBeInTheDocument()
+      const favLoca = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      expect(favLoca.length).toBe(0);
+  })
+  it('testando se os elemento são renderizados', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+        history.push('/drinks/15997');
+      });
+      const btnFavRecipe = await screen.findByTestId(favBtnId, {}, { timeout: 30000 });
+      expect(btnFavRecipe).toBeInTheDocument();
+      expect(btnFavRecipe).toHaveAttribute('src', 'whiteHeartIcon.svg');
+  
+      userEvent.click(btnFavRecipe);
+      expect(btnFavRecipe).toHaveAttribute('src', 'blackHeartIcon.svg');
+  
+      const favLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      expect(favLocal.length).toBe(1);
+    act(() => {
+      history.push('/favorite-recipes');
+    });
+    expect(history.location.pathname).toBe('/favorite-recipes');
+    const filter1 = screen.getByTestId(/filter-by-all-btn/i)
+    const filter3 = screen.getByTestId(/filter-by-meal-btn/i)
+    const img = screen.getByTestId(testid2)
+
+    expect(filter1).toBeInTheDocument()
+    
+    expect(filter3).toBeInTheDocument()
+    expect(img).toBeInTheDocument()
+
+    userEvent.click(filter1)
+    const img2 = await screen.findByTestId(testid2)
+    expect(img2).toBeInTheDocument()
+    userEvent.click(filter3)
+    expect(img2).not.toBeInTheDocument()
+    const filter2 = screen.getByTestId(/filter-by-drink-btn/i)
+    expect(filter2).toBeInTheDocument()
+    userEvent.click(filter2)
+  })
+  it('testando os botões', async () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+        history.push('/drinks/15997');
+      });
+      const btnFavRecipe = await screen.findByTestId(favBtnId, {}, { timeout: 30000 });
+      expect(btnFavRecipe).toBeInTheDocument();
+      expect(btnFavRecipe).toHaveAttribute('src', 'whiteHeartIcon.svg');
+  
+      userEvent.click(btnFavRecipe);
+      expect(btnFavRecipe).toHaveAttribute('src', 'blackHeartIcon.svg');
+  
+      const favLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      expect(favLocal.length).toBe(1);
+    act(() => {
+      history.push('/favorite-recipes');
+    });
+      const shareBtn = screen.getByTestId(share);
+      expect(shareBtn).toBeInTheDocument();
+      const favBtn = screen.getByTestId(fav);
+      expect(favBtn).toBeInTheDocument();
+      userEvent.click(favBtn);
+      const favLoca = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      expect(favLoca.length).toBe(0);
+  })
+});
