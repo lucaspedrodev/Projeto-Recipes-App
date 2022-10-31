@@ -9,6 +9,7 @@ import './InProgress.css';
 export default function DrinkInProgress() {
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const [drinkData, setDrinkData] = useState([]);
+  const [finishDisible, setFinishDisible] = useState(true);
 
   const history = useHistory();
   const id = history.location.pathname.split('/')[2];
@@ -42,6 +43,11 @@ export default function DrinkInProgress() {
       target.parentNode.className = 'scratched';
       getLocal.drinks[id] = [...getLocal.drinks[id], element];
       localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
+      if (JSON.stringify(getLocal.drinks[id]) === JSON.stringify(drinkIngredients)) {
+        setFinishDisible(false);
+      } else {
+        setFinishDisible(true);
+      }
     } else {
       target.parentNode.className = '';
       const arrayLocalId = [...getLocal.meals[id]];
@@ -81,7 +87,13 @@ export default function DrinkInProgress() {
           </label>
         ))}
       </div>
-      <button type="button" data-testid="finish-recipe-btn">finish</button>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ finishDisible }
+      >
+        finish
+      </button>
     </main>
   );
 }
