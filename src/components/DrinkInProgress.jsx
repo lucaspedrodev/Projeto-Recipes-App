@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import './InProgress.css';
 
 export default function DrinkInProgress() {
   const [drinkIngredients, setDrinkIngredients] = useState([]);
@@ -22,6 +23,14 @@ export default function DrinkInProgress() {
     requestApi();
   }, [id]);
 
+  const handleCheckbox = (target) => {
+    if (target.checked) {
+      target.parentNode.className = 'scratched';
+    } else {
+      target.parentNode.className = '';
+    }
+  };
+
   return (
     <main>
       <img
@@ -43,6 +52,7 @@ export default function DrinkInProgress() {
             <input
               type="checkbox"
               id={ index }
+              onClick={ ({ target }) => handleCheckbox(target) }
             />
             <p>{e}</p>
           </label>

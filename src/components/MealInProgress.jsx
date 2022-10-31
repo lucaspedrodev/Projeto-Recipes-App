@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import './InProgress.css';
 
 export default function MealInProgress() {
   const [mealData, setMealData] = useState([]);
@@ -22,7 +23,15 @@ export default function MealInProgress() {
     };
     requestApi();
   }, [id]);
-  console.log(mealIngredients);
+
+  const handleCheckbox = (target) => {
+    if (target.checked) {
+      target.parentNode.className = 'scratched';
+    } else {
+      target.parentNode.className = '';
+    }
+  };
+
   return (
     <main>
       <img
@@ -37,13 +46,14 @@ export default function MealInProgress() {
       <div data-testid="instructions">
         {mealIngredients.map((e, index) => (
           <label
-            htmlFor={ index }
+            htmlFor={ e }
             key={ index }
             data-testid={ `${index}-ingredient-step` }
           >
             <input
               type="checkbox"
-              id={ index }
+              id={ e }
+              onClick={ ({ target }) => handleCheckbox(target) }
             />
             <p>{e}</p>
           </label>
