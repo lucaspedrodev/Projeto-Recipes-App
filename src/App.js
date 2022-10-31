@@ -11,6 +11,7 @@ import Meals from './pages/Meals';
 import Profile from './pages/Profile';
 import RecipeDetails from './pages/RecipeDetails';
 import Recipes from './pages/Recipes';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 export default function App() {
   return (
@@ -35,6 +36,8 @@ export default function App() {
         </Route>
         <Route path="/meals/:id" component={ RecipeDetails } />
         <Route path="/drinks/:id" component={ RecipeDetails } />
+        <Route path="/meals/:id/in-progress" component={ RecipeInProgress } />
+        <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
       </Switch>
     </Provider>
   );
