@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../Context/Context';
-import localStorageInProgressRecipes from '../serviceLocal';
+import { localStorageDoneRecipes, localStorageInProgressRecipes } from '../serviceLocal';
 import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
 import ButtonShareRecipe from './ButtonShareRecipe';
 import './InProgress.css';
@@ -44,7 +44,6 @@ export default function MealInProgress() {
       target.parentNode.className = 'scratched';
       getLocal.meals[id] = [...getLocal.meals[id], element];
       localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
-      console.log(getLocal);
       if (JSON.stringify(getLocal.meals[id]) === JSON.stringify(mealIngredients)) {
         setFinishDisible(false);
       } else {
@@ -58,6 +57,26 @@ export default function MealInProgress() {
       getLocal.meals[id] = arrayLocalId;
       localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
     }
+  };
+
+  const finishRecipe = () => {
+    const getLocalDone = localStorageDoneRecipes();
+    const dateNow = new Date();
+
+    const recipe = {
+      id,
+      nationality: mealData.strArea,
+      name: mealData.strMeal,
+      category: mealData.strCategory,
+      image: mealData.strMealThumb,
+      tags: mealData.strTags.split(','),
+      alcoholicOrNot: '',
+      type: 'meal',
+      doneDate: dateNow.toISOString(),
+    };
+
+    localStorage.setItem('doneRecipes', JSON.stringify([...getLocalDone, recipe]));
+    history.push('/done-recipes');
   };
 
   return (
@@ -93,6 +112,7 @@ export default function MealInProgress() {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ finishDisible }
+        onClick={ finishRecipe }
       >
         finish
       </button>

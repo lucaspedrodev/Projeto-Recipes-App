@@ -1,4 +1,4 @@
-const localStorageInProgressRecipes = () => {
+export const localStorageInProgressRecipes = () => {
   const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   if (getLocal === null) {
@@ -12,4 +12,16 @@ const localStorageInProgressRecipes = () => {
   return getLocalIn;
 };
 
-export default localStorageInProgressRecipes;
+export const localStorageDoneRecipes = () => {
+  const getLocal = JSON.parse(localStorage.getItem('doneRecipes'));
+
+  if (getLocal === null) {
+    localStorage.setItem(
+      'doneRecipes',
+      JSON.stringify([]),
+    );
+  }
+
+  const getLocalIn = JSON.parse(localStorage.getItem('doneRecipes'));
+  return getLocalIn;
+};

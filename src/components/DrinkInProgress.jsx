@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Context from '../Context/Context';
-import localStorageInProgressRecipes from '../serviceLocal';
+import { localStorageDoneRecipes, localStorageInProgressRecipes } from '../serviceLocal';
 import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
 import ButtonShareRecipe from './ButtonShareRecipe';
 import './InProgress.css';
@@ -58,6 +58,26 @@ export default function DrinkInProgress() {
     }
   };
 
+  const finishRecipe = () => {
+    const getLocalDone = localStorageDoneRecipes();
+    const dateNow = new Date();
+
+    const recipe = {
+      id,
+      nationality: drinkData.strArea || '',
+      name: drinkData.strDrink,
+      category: drinkData.strCategory,
+      image: drinkData.strDrinkThumb,
+      tags: drinkData.strTags === null ? [] : drinkData.strTags.split(','),
+      alcoholicOrNot: drinkData.strAlcoholic || '',
+      type: 'drink',
+      doneDate: dateNow.toISOString(),
+    };
+
+    localStorage.setItem('doneRecipes', JSON.stringify([...getLocalDone, recipe]));
+    history.push('/done-recipes');
+  };
+
   return (
     <main>
       <img
@@ -91,6 +111,7 @@ export default function DrinkInProgress() {
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ finishDisible }
+        onClick={ finishRecipe }
       >
         finish
       </button>
