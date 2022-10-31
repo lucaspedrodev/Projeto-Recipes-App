@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import localStorageInProgressRecipes from '../serviceLocal';
 import './InProgress.css';
 
 export default function MealInProgress() {
@@ -8,6 +9,12 @@ export default function MealInProgress() {
 
   const history = useHistory();
   const id = history.location.pathname.split('/')[2];
+
+  const getLocal = localStorageInProgressRecipes();
+
+  if (!Object.keys(getLocal.meals).includes(id)) {
+    getLocal.meals[id] = [];
+  }
 
   useEffect(() => {
     const requestApi = async () => {
@@ -24,11 +31,18 @@ export default function MealInProgress() {
     requestApi();
   }, [id]);
 
-  const handleCheckbox = (target) => {
+  const handleCheckbox = (target, element) => {
     if (target.checked) {
       target.parentNode.className = 'scratched';
+      getLocal.meals[id] = [...getLocal.meals[id], element];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
     } else {
       target.parentNode.className = '';
+      const arrayLocalId = [...getLocal.meals[id]];
+      const index = arrayLocalId.indexOf(element);
+      arrayLocalId.splice(index, 1);
+      getLocal.meals[id] = arrayLocalId;
+      localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
     }
   };
 
@@ -49,11 +63,13 @@ export default function MealInProgress() {
             htmlFor={ e }
             key={ index }
             data-testid={ `${index}-ingredient-step` }
+            className={ getLocal.meals[id].includes(e) ? 'scratched' : '' }
           >
             <input
               type="checkbox"
               id={ e }
-              onClick={ ({ target }) => handleCheckbox(target) }
+              checked={ getLocal.meals[id].includes(e) || onchange }
+              onClick={ ({ target }) => handleCheckbox(target, e) }
             />
             <p>{e}</p>
           </label>

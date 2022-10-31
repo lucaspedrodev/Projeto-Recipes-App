@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import localStorageInProgressRecipes from '../serviceLocal';
 import './InProgress.css';
 
 export default function DrinkInProgress() {
@@ -9,6 +10,12 @@ export default function DrinkInProgress() {
   const history = useHistory();
   const id = history.location.pathname.split('/')[2];
 
+  const getLocal = localStorageInProgressRecipes();
+
+  if (!Object.keys(getLocal.drinks).includes(id)) {
+    getLocal.drinks[id] = [];
+  }
+  // setLocalState(getLocal);
   useEffect(() => {
     const requestApi = async () => {
       const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -23,11 +30,18 @@ export default function DrinkInProgress() {
     requestApi();
   }, [id]);
 
-  const handleCheckbox = (target) => {
+  const handleCheckbox = (target, element) => {
     if (target.checked) {
       target.parentNode.className = 'scratched';
+      getLocal.drinks[id] = [...getLocal.drinks[id], element];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
     } else {
       target.parentNode.className = '';
+      const arrayLocalId = [...getLocal.meals[id]];
+      const index = arrayLocalId.indexOf(element);
+      arrayLocalId.splice(index, 1);
+      getLocal.meals[id] = arrayLocalId;
+      localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
     }
   };
 
@@ -48,11 +62,13 @@ export default function DrinkInProgress() {
             htmlFor={ index }
             key={ index }
             data-testid={ `${index}-ingredient-step` }
+            className={ getLocal.drinks[id].includes(e) ? 'scratched' : '' }
           >
             <input
               type="checkbox"
               id={ index }
-              onClick={ ({ target }) => handleCheckbox(target) }
+              checked={ getLocal.drinks[id].includes(e) || onchange }
+              onChange={ ({ target }) => handleCheckbox(target, e) }
             />
             <p>{e}</p>
           </label>
