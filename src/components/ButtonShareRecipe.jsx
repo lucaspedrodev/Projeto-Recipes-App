@@ -6,8 +6,14 @@ export default function ButtonShareRecipe() {
   const [msgShow, setMsgShow] = useState(false);
 
   const handleShareBtn = () => {
-    copy(window.location.href);
-    setMsgShow(true);
+    if (window.location.href.includes('in-progress')) {
+      const index = window.location.href.indexOf('in-progress');
+      copy(window.location.href.substring(0, index - 1));
+      setMsgShow(true);
+    } else {
+      copy(window.location.href);
+      setMsgShow(true);
+    }
   };
   return (
     <div>

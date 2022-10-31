@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Context from '../Context/Context';
 import localStorageInProgressRecipes from '../serviceLocal';
+import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
+import ButtonShareRecipe from './ButtonShareRecipe';
 import './InProgress.css';
 
 export default function DrinkInProgress() {
@@ -15,20 +18,24 @@ export default function DrinkInProgress() {
   if (!Object.keys(getLocal.drinks).includes(id)) {
     getLocal.drinks[id] = [];
   }
-  // setLocalState(getLocal);
+
+  const { setApiDrink, setTypeRecipe } = useContext(Context);
+
   useEffect(() => {
     const requestApi = async () => {
       const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await (await fetch(endPoint)).json();
       setDrinkData(response.drinks[0]);
+      setApiDrink(response.drinks[0]);
 
       const Ingredients = Object.entries(response.drinks[0])
         .filter((e) => e[0].includes('strIngredient') && e[1] !== '' && e[1] !== null)
         .map((e) => e[1]);
       setDrinkIngredients(Ingredients);
+      setTypeRecipe('drink');
     };
     requestApi();
-  }, [id]);
+  }, [id, setApiDrink, setTypeRecipe]);
 
   const handleCheckbox = (target, element) => {
     if (target.checked) {
@@ -54,8 +61,8 @@ export default function DrinkInProgress() {
       />
       <h1 data-testid="recipe-title">{drinkData.strDrink}</h1>
       <p data-testid="recipe-category">{drinkData.strCategory}</p>
-      <button type="button" data-testid="share-btn">share</button>
-      <button type="button" data-testid="favorite-btn">favorite</button>
+      <ButtonShareRecipe />
+      <ButtonFavoriteRecipe />
       <div data-testid="instructions">
         {drinkIngredients.map((e, index) => (
           <label

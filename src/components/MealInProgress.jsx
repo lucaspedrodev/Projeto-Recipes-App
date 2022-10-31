@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import Context from '../Context/Context';
 import localStorageInProgressRecipes from '../serviceLocal';
+import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
+import ButtonShareRecipe from './ButtonShareRecipe';
 import './InProgress.css';
 
 export default function MealInProgress() {
@@ -16,20 +19,24 @@ export default function MealInProgress() {
     getLocal.meals[id] = [];
   }
 
+  const { setApiMeal, setTypeRecipe } = useContext(Context);
+
   useEffect(() => {
     const requestApi = async () => {
       const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       const response = await (await fetch(endPoint)).json();
       setMealData(response.meals[0]);
+      setApiMeal(response.meals[0]);
 
       const Ingredients = Object.entries(response.meals[0])
         .filter((e) => e[0].includes('strIngredient') && e[1] !== '' && e[1] !== null)
         .map((e) => e[1]);
 
+      setTypeRecipe('meal');
       setMealIngredients(Ingredients);
     };
     requestApi();
-  }, [id]);
+  }, [id, setApiMeal, setTypeRecipe]);
 
   const handleCheckbox = (target, element) => {
     if (target.checked) {
@@ -55,8 +62,8 @@ export default function MealInProgress() {
       />
       <h1 data-testid="recipe-title">{mealData.strMeal}</h1>
       <p data-testid="recipe-category">{mealData.strCategory}</p>
-      <button type="button" data-testid="share-btn">share</button>
-      <button type="button" data-testid="favorite-btn">favorite</button>
+      <ButtonShareRecipe />
+      <ButtonFavoriteRecipe />
       <div data-testid="instructions">
         {mealIngredients.map((e, index) => (
           <label
