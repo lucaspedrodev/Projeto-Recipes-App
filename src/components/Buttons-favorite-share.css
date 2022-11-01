@@ -1,4 +1,4 @@
-.btns-share-favorite {
+.Btns__share__favorite__container {
   align-content: center;
   color: #fcc436;
   display: flex;
@@ -8,27 +8,28 @@
   width: 100%;
 }
 
-.btns {
-  align-items: center;
-  display: flex;
-  margin-right: 25px;
-}
-
-.recipe-category {
+.Recipe__category__container {
   align-items: center;
   display: flex;
   font-size: 12px;
   font-weight: 700;
   line-height: 12px;
-  margin-left: 6px;
+  margin-left: 15px;
 }
 
-.recipe-category p {
+.Recipe__category__container p {
   margin-left: 3px;
 }
 
-.share-favorite-btn {
+.Btns__container {
+  align-items: center;
+  display: flex;
+  margin-right: 25px;
+}
+
+.Share__favorite__btn {
   background: none;
   border: none;
   margin: 0 5px;
 }
+

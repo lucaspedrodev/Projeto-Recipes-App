@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Share from '../images/Share.svg';
 
 const copy = require('clipboard-copy');
 
@@ -16,21 +17,22 @@ export default function ButtonShareRecipe() {
     }
   };
   return (
-    <div>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => handleShareBtn() }
-      >
-        Share
-      </button>
-      {
-        msgShow && (
-          <span data-testid="msg-share">
-            Link copied!
-          </span>
-        )
-      }
-    </div>
+    <>
+      {msgShow && (
+        <p data-testid="msg-share">
+          Link copied!
+        </p>
+      )}
+      <div>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ () => handleShareBtn() }
+          className="Share__favorite__btn"
+        >
+          <img src={ Share } alt="Share" />
+        </button>
+      </div>
+    </>
   );
 }

@@ -46,14 +46,14 @@ export default function Drink(props) {
   return (
     <>
       <header className="Recipe-header">
-        <nav className="btns-share-favorite">
-          <div className="recipe-category">
+        <nav className="Btns__share__favorite__container">
+          <div className="Recipe__category__container">
             <img src={ DrinkDetailsHeader } alt="Drink Details Header" />
             <p data-testid="recipe-category">
               {apiDrink.strAlcoholic}
             </p>
           </div>
-          <div className="btns">
+          <div className="Btns__container">
             <ButtonShareRecipe />
             <ButtonFavoriteRecipe />
           </div>
