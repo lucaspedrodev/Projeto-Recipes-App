@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import DoneRecipesCard from '../components/DoneRecipesCard';
 
 export default function DoneRecipes() {
-  const [localDoneRecipes, setLocalDoneRecipes] = useState();
+  const [localDoneRecipes, setLocalDoneRecipes] = useState([]);
 
-  const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  setLocalDoneRecipes(recipes);
+  useEffect(() => {
+    const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    setLocalDoneRecipes(recipes);
+  }, []);
 
   const filterByValue = ({ target }) => {
     const { value } = target;
     if (value === buttonMeal) {
-      const filterMeals = testLocalStorage.filter((recipe) => recipe.type.includes(/meal/i));
+      const filterMeals = recipes.filter((recipe) => recipe.type.includes(/meal/i));
       setLocalDoneRecipes(filterMeals);
     } else if (value === buttonDrink) {
-      const filterDrinks = testLocalStorage.filter((recipe) => recipe.type.includes(/drink/i));
+      const filterDrinks = recipes.filter((recipe) => recipe.type.includes(/drink/i));
       setLocalDoneRecipes(filterDrinks);
     } else {
-      setLocalDoneRecipes(testLocalStorage);
+      setLocalDoneRecipes(recipes);
     }
   };
 
@@ -49,7 +51,7 @@ export default function DoneRecipes() {
         Drinks
       </button>
       <div>
-        {localDoneRecipes.map((recipe, index) => (
+        {localDoneRecipes?.map((recipe, index) => (
           <DoneRecipesCard key={ recipe.id } recipesList={ recipe } index={ index } />
         ))}
       </div>
