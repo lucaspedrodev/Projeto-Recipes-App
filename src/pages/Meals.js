@@ -4,7 +4,6 @@ import Context from '../Context/Context';
 
 export default function Meals() {
   const { recipesData } = useContext(Context);
-
   return (
     <div>
       <Header />
