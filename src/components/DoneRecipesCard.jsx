@@ -22,13 +22,13 @@ export default function DoneRecipes(props) {
             {recipe.category}
           </p>
           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-
-          <button data-testid={ `${index}-horizontal-share-btn` } type="button">
-            Share
-          </button>
           <p data-testid={ `${index}-${recipe.tags}-horizontal-tag` }>
             {recipe.tags}
           </p>
+          <button data-testid={ `${index}-horizontal-share-btn` } type="button">
+            Share
+          </button>
+
         </main>
       ))}
     </div>
