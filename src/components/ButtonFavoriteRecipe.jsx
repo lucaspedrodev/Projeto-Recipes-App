@@ -61,8 +61,9 @@ export default function ButtonFavoriteRecipe() {
           data-testid="favorite-btn"
           onClick={ () => favoriteRecipe() }
           src={ whiteHeart }
+          className="Share__favorite__btn"
         >
-          Favorite
+          <img src={ whiteHeart } alt="whiteHeart" />
         </button>
       </div>
     );
@@ -74,8 +75,9 @@ export default function ButtonFavoriteRecipe() {
         data-testid="favorite-btn"
         onClick={ () => unfavorRecipe() }
         src={ blackHeart }
+        className="Share__favorite__btn"
       >
-        Favorite
+        <img src={ blackHeart } alt="blackHeart" />
       </button>
     </div>
   );
