@@ -12,7 +12,6 @@ import Recipes from './pages/Recipes';
 import Header from './components/Header';
 import RecipeInProgress from './pages/RecipeInProgress';
 
-
 export default function App() {
   return (
     <Provider>
