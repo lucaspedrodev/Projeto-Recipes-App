@@ -16,8 +16,10 @@ export default function FavoriteRecipes() {
     setFavs2(us);
   }, []);
   const handleClip = (id, type) => {
+    console.log('teste');
     clip(`http://localhost:3000/${type}s/${id}`);
     setText(true);
+    console.log('teste2');
   };
   const handleFavs = (elem) => {
     const newFavs = favs.filter((e) => e !== elem);
@@ -88,7 +90,10 @@ export default function FavoriteRecipes() {
                 type="button"
                 data-testid={ `${i}-horizontal-share-btn` }
                 src={ share }
-                onClick={ () => handleClip(element.id, element.type) }
+                onClick={ () => {
+                  handleClip(element.id, element.type);
+                  console.log('teste');
+                } }
               >
                 share
               </button>

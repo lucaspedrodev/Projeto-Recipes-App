@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
@@ -8,7 +8,7 @@ import renderWithRouter from './renderWithRouter';
 const testid = '0-horizontal-image';
 const testid2 = '0-horizontal-name';
 const favBtnId = 'favorite-btn';
-const fav = '1-horizontal-favorite-btn';
+const fav = '0-horizontal-favorite-btn';
 const share = '0-horizontal-share-btn';
 const role = 'src';
 const func = (ele) => expect(ele).toHaveAttribute(role, 'whiteHeartIcon.svg');
@@ -53,35 +53,7 @@ describe('testando a paginda de receitas favoritas', () => {
     expect(filter2).toBeInTheDocument();
     userEvent.click(filter2);
   });
-  it('testando os botões', async () => {
-    const mockClipboard = {
-      writeText: jest.fn(),
-    };
-    global.navigator.clipboard = mockClipboard;
-    const { history } = renderWithRouter(<App />);
-    act(() => {
-      history.push('/meals/52771');
-    });
-    const btnFavRecipe = await screen.findByTestId(favBtnId, {}, { timeout: 30000 });
-    expect(btnFavRecipe).toBeInTheDocument();
-    func(btnFavRecipe);
 
-    userEvent.click(btnFavRecipe);
-    func2(btnFavRecipe);
-    act(() => {
-      history.push(path1);
-    });
-
-    const shareBtn = screen.getByTestId(share);
-    expect(shareBtn).toBeInTheDocument();
-    const favBtn = screen.getByTestId(fav);
-    expect(favBtn).toBeInTheDocument();
-    userEvent.click(favBtn);
-    userEvent.click(shareBtn);
-
-    const textLink = screen.getByTestId('link-copied');
-    expect(textLink).toBeInTheDocument();
-  });
   it('testando se os elemento são renderizados', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => {
@@ -116,11 +88,11 @@ describe('testando a paginda de receitas favoritas', () => {
     expect(filter2).toBeInTheDocument();
     userEvent.click(filter2);
   });
-  it('testando os botões', async () => {
-    const mockClipboard2 = {
+  it('testando os botões - drinks', async () => {
+    const mockClipboard = {
       writeText: jest.fn(),
     };
-    global.navigator.clipboard = mockClipboard2;
+    global.navigator.clipboard = mockClipboard;
     const { history } = renderWithRouter(<App />);
     act(() => {
       history.push('/drinks/15997');
@@ -139,7 +111,45 @@ describe('testando a paginda de receitas favoritas', () => {
     expect(shareBtn).toBeInTheDocument();
     const favBtn = screen.getByTestId(fav);
     expect(favBtn).toBeInTheDocument();
+    // userEvent.click(shareBtn);
     userEvent.click(favBtn);
+  });
+  it.only('testando os botões - meals', async () => {
+    jest.spyOn(global, 'fetch');
+    const mockClipboard = {
+      writeText: jest.fn(),
+    };
+    global.navigator.clipboard = mockClipboard;
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+      history.push('/meals/52772');
+    });
+
+    const title = await screen.findByText('Teriyaki Chicken Casserole');
+    expect(title).toBeInTheDocument();
+
+    // await waitFor(() => expect(global.fetch).toBeCalledTimes(2));
+    const btnFavRecipe = await screen.findByTestId(favBtnId, {}, { timeout: 30000 });
+    expect(btnFavRecipe).toBeInTheDocument();
+    func(btnFavRecipe);
+
+    userEvent.click(btnFavRecipe);
+    func2(btnFavRecipe);
+
+    act(() => {
+      history.push(path1);
+    });
+
+    const title2 = await screen.findByText('Teriyaki Chicken Casserole');
+    expect(title2).toBeInTheDocument();
+
+    const shareBtn = screen.getByTestId(share);
+    expect(shareBtn).toBeInTheDocument();
+    const favBtn = screen.getByTestId(fav);
+    expect(favBtn).toBeInTheDocument();
     userEvent.click(shareBtn);
+    const link = screen.getByTestId('link-copied');
+    expect(link).toBeInTheDocument();
+    userEvent.click(favBtn);
   });
 });
