@@ -14,3 +14,8 @@
   text-transform: uppercase;
   width: 100%;
 }
+
+.start-recipe-btn:disabled {
+  background: rgba(252, 196, 54, 0.5);
+  position: relative;
+}

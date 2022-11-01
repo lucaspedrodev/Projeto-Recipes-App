@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context/Context';
 import './MealsAndDrick.css';
+import './Buttons-favorite-share.css';
+import DrinkDetailsHeader from '../images/DrinkDetailsHeader.svg';
 
 import RecommendationMeals from './RecommendationMeals';
 import ButtonStartRecipe from './ButtonStartRecipe';
@@ -18,7 +20,7 @@ export default function Drink(props) {
     setTypeRecipe,
   } = useContext(Context);
 
-  const { props: { match: { params: { id }, url } } } = props;
+  const { props: { match: { params: { id } } } } = props;
   useEffect(() => {
     const requestApi = async () => {
       const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -44,6 +46,18 @@ export default function Drink(props) {
   return (
     <>
       <header className="Recipe-header">
+        <nav className="Btns__share__favorite__container">
+          <div className="Recipe__category__container">
+            <img src={ DrinkDetailsHeader } alt="Drink Details Header" />
+            <p data-testid="recipe-category">
+              {apiDrink.strAlcoholic}
+            </p>
+          </div>
+          <div className="Btns__container">
+            <ButtonShareRecipe />
+            <ButtonFavoriteRecipe />
+          </div>
+        </nav>
         <img
           src={ apiDrink.strDrinkThumb }
           alt={ apiDrink.strDrink }
@@ -55,9 +69,6 @@ export default function Drink(props) {
         </h1>
       </header>
       <main className="Foods-recipe-main">
-        <h3 data-testid="recipe-category" className="recipe-category">
-          {apiDrink.strAlcoholic}
-        </h3>
         <h1 className="recipe-titles">Ingredients</h1>
         <div className="Foods-recipe-ingredient">
           <ul>
@@ -70,10 +81,6 @@ export default function Drink(props) {
               </li>
             ))}
           </ul>
-          <div className="btns-share-favorite">
-            <ButtonFavoriteRecipe />
-            <ButtonShareRecipe url={ url } />
-          </div>
         </div>
         <h1 className="recipe-titles">Instructions</h1>
         <div className="Foods-recipe-instructions">

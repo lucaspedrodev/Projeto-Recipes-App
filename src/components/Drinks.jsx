@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../images/mealIcon.svg';
 import './MealsAndDrinks.css';
@@ -8,10 +8,13 @@ import './style/Cocktail.css';
 import './style/Shake.css';
 import './style/Other.css';
 import './style/Cocoa.css';
+import Context from '../Context/Context';
+import CardDrinks from '../pages/CardDrink';
 
 export default function Drinks() {
   const [drinks, setDrinks] = useState([]);
   const [drinksCat, setDrinksCat] = useState([]);
+  const { call, setCall } = useContext(Context);
 
   useEffect(() => {
     const getCocktail = async () => {
@@ -32,11 +35,13 @@ export default function Drinks() {
     const endPoin = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     const reponse = await (await fetch(endPoin)).json();
     setDrinks(reponse.drinks.slice(0, Number('12')));
+    setCall(false);
   };
 
   const handleFilter2 = async (targets) => {
     const get = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${targets.value}`;
     const getJson = await (await fetch(get)).json();
+    setCall(false);
     if (targets.checked) {
       setDrinks(getJson.drinks.slice(0, Number('12')));
     } else {
@@ -79,32 +84,34 @@ export default function Drinks() {
           </label>
         ))}
       </div>
-      <div className="Recipes__container__card">
-        {drinks.map((element, i) => (
-          <Link
-            key={ i }
-            to={ `/drinks/${element.idDrink}` }
-            className="Recipe__card__name"
-          >
-            <div
-              id={ element.idDrink }
+      {call ? <CardDrinks /> : (
+        <div className="Recipes__container__card">
+          {drinks.map((element, i) => (
+            <Link
               key={ i }
-              className="Recipe__card"
-              data-testid={ `${i}-recipe-card` }
+              to={ `/drinks/${element.idDrink}` }
+              className="Recipe__card__name"
             >
-              <img
-                src={ element.strDrinkThumb }
-                data-testid={ `${i}-card-img` }
-                alt={ element.strDrink }
-                className="Recipe__img"
-              />
-              <div className="Recipe__card__name__container">
-                <p data-testid={ `${i}-card-name` }>{element.strDrink}</p>
+              <div
+                id={ element.idDrink }
+                key={ i }
+                className="Recipe__card"
+                data-testid={ `${i}-recipe-card` }
+              >
+                <img
+                  src={ element.strDrinkThumb }
+                  data-testid={ `${i}-card-img` }
+                  alt={ element.strDrink }
+                  className="Recipe__img"
+                />
+                <div className="Recipe__card__name__container">
+                  <p data-testid={ `${i}-card-name` }>{element.strDrink}</p>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </main>
   );
 }

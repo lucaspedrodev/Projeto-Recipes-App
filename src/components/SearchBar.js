@@ -25,6 +25,7 @@ export default function SearchBar() {
         Ingredient
         <input
           data-testid="ingredient-search-radio"
+          name="radioButton"
           type="radio"
           id="ingredientSearch"
           checked={ radioIngredient }
@@ -35,6 +36,7 @@ export default function SearchBar() {
         Name
         <input
           data-testid="name-search-radio"
+          name="radioButton"
           type="radio"
           id="nameSearch"
           checked={ radioName }
@@ -45,6 +47,7 @@ export default function SearchBar() {
         First Letter
         <input
           data-testid="first-letter-search-radio"
+          name="radioButton"
           type="radio"
           id="firstLetterSearch"
           checked={ radioFl }
