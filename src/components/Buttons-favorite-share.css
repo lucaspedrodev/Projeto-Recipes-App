@@ -9,8 +9,9 @@
 }
 
 .btns {
+  align-items: center;
   display: flex;
-  margin-right: 6px;
+  margin-right: 25px;
 }
 
 .recipe-category {
@@ -24,4 +25,10 @@
 
 .recipe-category p {
   margin-left: 3px;
+}
+
+.share-favorite-btn {
+  background: none;
+  border: none;
+  margin: 0 5px;
 }
