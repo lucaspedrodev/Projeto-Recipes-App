@@ -50,10 +50,10 @@ export default function DrinkInProgress() {
       }
     } else {
       target.parentNode.className = '';
-      const arrayLocalId = [...getLocal.meals[id]];
+      const arrayLocalId = [...getLocal.drinks[id]];
       const index = arrayLocalId.indexOf(element);
       arrayLocalId.splice(index, 1);
-      getLocal.meals[id] = arrayLocalId;
+      getLocal.drinks[id] = arrayLocalId;
       localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
     }
   };
@@ -68,8 +68,8 @@ export default function DrinkInProgress() {
       name: drinkData.strDrink,
       category: drinkData.strCategory,
       image: drinkData.strDrinkThumb,
-      tags: drinkData.strTags === null ? [] : drinkData.strTags.split(','),
-      alcoholicOrNot: drinkData.strAlcoholic || '',
+      tags: [],
+      alcoholicOrNot: drinkData.strAlcoholic,
       type: 'drink',
       doneDate: dateNow.toISOString(),
     };
