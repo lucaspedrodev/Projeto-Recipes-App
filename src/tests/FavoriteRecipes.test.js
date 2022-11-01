@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
@@ -14,6 +14,7 @@ const role = 'src';
 const func = (ele) => expect(ele).toHaveAttribute(role, 'whiteHeartIcon.svg');
 const func2 = (ele) => expect(ele).toHaveAttribute(role, 'blackHeartIcon.svg');
 const path1 = '/favorite-recipes';
+const titles = 'Teriyaki Chicken Casserole';
 
 describe('testando a paginda de receitas favoritas', () => {
   jest.setTimeout(40000);
@@ -114,7 +115,7 @@ describe('testando a paginda de receitas favoritas', () => {
     // userEvent.click(shareBtn);
     userEvent.click(favBtn);
   });
-  it.only('testando os botões - meals', async () => {
+  it('testando os botões - meals', async () => {
     jest.spyOn(global, 'fetch');
     const mockClipboard = {
       writeText: jest.fn(),
@@ -125,10 +126,9 @@ describe('testando a paginda de receitas favoritas', () => {
       history.push('/meals/52772');
     });
 
-    const title = await screen.findByText('Teriyaki Chicken Casserole');
+    const title = await screen.findByText(titles);
     expect(title).toBeInTheDocument();
 
-    // await waitFor(() => expect(global.fetch).toBeCalledTimes(2));
     const btnFavRecipe = await screen.findByTestId(favBtnId, {}, { timeout: 30000 });
     expect(btnFavRecipe).toBeInTheDocument();
     func(btnFavRecipe);
@@ -140,16 +140,19 @@ describe('testando a paginda de receitas favoritas', () => {
       history.push(path1);
     });
 
-    const title2 = await screen.findByText('Teriyaki Chicken Casserole');
+    const title2 = await screen.findByText(titles);
     expect(title2).toBeInTheDocument();
 
     const shareBtn = screen.getByTestId(share);
     expect(shareBtn).toBeInTheDocument();
     const favBtn = screen.getByTestId(fav);
     expect(favBtn).toBeInTheDocument();
+    expect(favBtn).toHaveAttribute('src', 'blackHeartIcon.svg');
     userEvent.click(shareBtn);
     const link = screen.getByTestId('link-copied');
     expect(link).toBeInTheDocument();
     userEvent.click(favBtn);
+
+    expect(title2).not.toBeInTheDocument();
   });
 });
