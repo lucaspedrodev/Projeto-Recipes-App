@@ -5,17 +5,90 @@ import DoneRecipesCard from '../components/DoneRecipesCard';
 export default function DoneRecipes() {
   const [localDoneRecipes, setLocalDoneRecipes] = useState();
 
+  const testLocalStorage = [
+    {
+      id: '1234',
+      type: 'drink',
+      nationality: 'Brazilian',
+      category: 'Dessert',
+      alcoholicOrNot: 'alcoholic',
+      name: 'Margarita',
+      image: 'imagem',
+      doneDate: '12/10/2022',
+      tags: 'limao',
+    },
+    {
+      id: '8765',
+      type: 'meals',
+      nationality: 'Mexican',
+      category: 'Picante',
+      alcoholicOrNot: '',
+      name: 'Tacos',
+      image: 'imagem Taco',
+      doneDate: '16/10/2022',
+      tags: 'doritos',
+    },
+    {
+      id: '8765',
+      type: 'meals',
+      nationality: 'Mexican',
+      category: 'Picante',
+      alcoholicOrNot: '',
+      name: 'Tacos',
+      image: 'imagem ',
+      doneDate: '30/10/2022',
+      tags: 'doritos',
+    },
+    {
+      id: '1234',
+      type: 'drink',
+      nationality: 'Brazilian',
+      category: 'Dessert',
+      alcoholicOrNot: 'alcoholic',
+      name: 'Margarita',
+      image: 'imagem',
+      doneDate: '31/10/2022',
+      tags: 'limao',
+    },
+    {
+      id: '8765',
+      type: 'meals',
+      nationality: 'Mexican',
+      category: 'Picante',
+      alcoholicOrNot: '',
+      name: 'Tacos',
+      image: 'imagem do Taco',
+      doneDate: '30/10/2022',
+      tags: 'doritos',
+    },
+    {
+      id: '1234',
+      type: 'drink',
+      nationality: 'Brazilian',
+      category: 'Dessert',
+      alcoholicOrNot: 'alcoholic',
+      name: 'Margarita',
+      image: 'imagem',
+      doneDate: '26/10/2022',
+      tags: 'limao',
+    },
+  ];
+  setLocalDoneRecipes(testLocalStorage);
+  console.log(localDoneRecipes);
+  /*
+  const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  setLocalDoneRecipes(recipes);
+ */
   const filterByValue = ({ target }) => {
     const { value } = target;
-
     if (value === buttonMeal) {
-      const filterMeals = recipes.filter((recipe) => recipe.type.includes(/meal/i));
+      const filterMeals = testLocalStorage.filter((recipe) => recipe.type.includes(/meal/i));
       setLocalDoneRecipes(filterMeals);
     } else if (value === buttonDrink) {
-      const filterDrinks = recipes.filter((recipe) => recipe.type.includes(/drink/i));
+      const filterDrinks = testLocalStorage.filter((recipe) => recipe.type.includes(/drink/i));
       setLocalDoneRecipes(filterDrinks);
     } else {
-      setLocalDoneRecipes(recipes);
+      setLocalDoneRecipes(testLocalStorage);
     }
   };
 
