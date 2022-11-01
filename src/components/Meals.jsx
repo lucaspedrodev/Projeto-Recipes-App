@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import mealIcon from '../images/mealIcon.svg';
 import './MealsAndDrinks.css';
@@ -7,10 +7,13 @@ import './style/Breakfast.css';
 import './style/Dessert.css';
 import './style/Chicken.css';
 import './style/Goat.css';
+import Context from '../Context/Context';
+import CardMeals from '../pages/CardMeals';
 
 export default function Meals() {
   const [meals, setMeals] = useState([]);
   const [mealsCat, setMealsCat] = useState([]);
+  const { call } = useContext(Context);
 
   useEffect(() => {
     const getMeal = async () => {
@@ -78,36 +81,38 @@ export default function Meals() {
           </label>
         ))}
       </div>
-      <div className="Recipes__container__card">
-        {meals.map((element, i) => (
-          <Link
-            key={ i }
-            to={ `/meals/${element.idMeal}` }
-            className="Recipe__card__name"
-          >
-            <div
+      {call ? <CardMeals /> : (
+        <div className="Recipes__container__card">
+          {meals.map((element, i) => (
+            <Link
               key={ i }
-              data-testid={ `${i}-recipe-card` }
-              className="Recipe__card"
+              to={ `/meals/${element.idMeal}` }
+              className="Recipe__card__name"
             >
-              <img
-                src={ element.strMealThumb }
-                data-testid={ `${i}-card-img` }
-                alt={ element.strMeal }
-                className="Recipe__img"
-              />
-              <div className="Recipe__card__name__container">
-                <p
-                  className="Recipe__card__name"
-                  data-testid={ `${i}-card-name` }
-                >
-                  {element.strMeal}
-                </p>
+              <div
+                key={ i }
+                data-testid={ `${i}-recipe-card` }
+                className="Recipe__card"
+              >
+                <img
+                  src={ element.strMealThumb }
+                  data-testid={ `${i}-card-img` }
+                  alt={ element.strMeal }
+                  className="Recipe__img"
+                />
+                <div className="Recipe__card__name__container">
+                  <p
+                    className="Recipe__card__name"
+                    data-testid={ `${i}-card-name` }
+                  >
+                    {element.strMeal}
+                  </p>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </main>
   );
 }

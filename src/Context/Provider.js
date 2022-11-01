@@ -17,6 +17,7 @@ export default function Provider({ children }) {
   const [ingredientsApiName, setIngredientsApiName] = useState([]);
   const [ingredientsApiFl, setIngredientsApiFl] = useState([]);
   const [recipesData, setRecipesData] = useState([]);
+  const [call, setCall] = useState(false);
 
   const history = useHistory();
   const MaxRecipes = 12;
@@ -158,6 +159,7 @@ export default function Provider({ children }) {
       fetchIngredientsFirstLetter();
     }
     setDrinksFilterAPi();
+    setCall(true);
   }, [
     fetchIngredients,
     fetchIngredientsFirstLetter,
@@ -194,6 +196,8 @@ export default function Provider({ children }) {
       setApiDrink,
       typeRecipe,
       setTypeRecipe,
+      setCall,
+      call,
     }),
     [
       searchBarAppear,
@@ -209,11 +213,9 @@ export default function Provider({ children }) {
       setDrinksFilterAPi,
       recipesData,
       apiMeal,
-      setApiMeal,
       apiDrink,
-      setApiDrink,
       typeRecipe,
-      setTypeRecipe,
+      call,
     ],
   );
 
