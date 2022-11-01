@@ -15,6 +15,7 @@ export default function Meals() {
               data-testid={ `${index}-card-img` }
               src={ recipe.strMealThumb }
               alt={ recipe.strMeal }
+              width="100px"
             />
             <p data-testid={ `${index}-card-name` }>{recipe.strMeal}</p>
           </div>

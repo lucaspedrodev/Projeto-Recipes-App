@@ -14,6 +14,7 @@ export default function Drinks() {
               data-testid={ `${index}-card-img` }
               src={ recipe.strDrinkThumb }
               alt={ recipe.strDrink }
+              width="100px"
             />
             <p data-testid={ `${index}-card-name` }>{recipe.strDrink}</p>
           </div>

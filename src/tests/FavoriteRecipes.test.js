@@ -8,7 +8,7 @@ import renderWithRouter from './renderWithRouter';
 const testid = '0-horizontal-image';
 const testid2 = '0-horizontal-name';
 const favBtnId = 'favorite-btn';
-const fav = '0-horizontal-favorite-btn';
+const fav = '1-horizontal-favorite-btn';
 const share = '0-horizontal-share-btn';
 const role = 'src';
 const func = (ele) => expect(ele).toHaveAttribute(role, 'whiteHeartIcon.svg');
@@ -30,7 +30,6 @@ describe('testando a paginda de receitas favoritas', () => {
     func2(btnFavRecipe);
     const favLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
     expect(favLocal.length).toBe(1);
-    console.log(favLocal);
     act(() => {
       history.push(path1);
     });
@@ -55,6 +54,10 @@ describe('testando a paginda de receitas favoritas', () => {
     userEvent.click(filter2);
   });
   it('testando os botões', async () => {
+    const mockClipboard = {
+      writeText: jest.fn(),
+    };
+    global.navigator.clipboard = mockClipboard;
     const { history } = renderWithRouter(<App />);
     act(() => {
       history.push('/meals/52771');
@@ -65,21 +68,19 @@ describe('testando a paginda de receitas favoritas', () => {
 
     userEvent.click(btnFavRecipe);
     func2(btnFavRecipe);
-
-    const favLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    expect(favLocal.length).toBe(1);
     act(() => {
       history.push(path1);
     });
-    const img = screen.getByTestId(testid);
+
     const shareBtn = screen.getByTestId(share);
     expect(shareBtn).toBeInTheDocument();
     const favBtn = screen.getByTestId(fav);
     expect(favBtn).toBeInTheDocument();
     userEvent.click(favBtn);
-    expect(img).not.toBeInTheDocument();
-    const favLoca = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    expect(favLoca.length).toBe(0);
+    userEvent.click(shareBtn);
+
+    const textLink = screen.getByTestId('link-copied');
+    expect(textLink).toBeInTheDocument();
   });
   it('testando se os elemento são renderizados', async () => {
     const { history } = renderWithRouter(<App />);
@@ -93,8 +94,6 @@ describe('testando a paginda de receitas favoritas', () => {
     userEvent.click(btnFavRecipe);
     func2(btnFavRecipe);
 
-    const favLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    expect(favLocal.length).toBe(1);
     act(() => {
       history.push(path1);
     });
@@ -118,6 +117,10 @@ describe('testando a paginda de receitas favoritas', () => {
     userEvent.click(filter2);
   });
   it('testando os botões', async () => {
+    const mockClipboard2 = {
+      writeText: jest.fn(),
+    };
+    global.navigator.clipboard = mockClipboard2;
     const { history } = renderWithRouter(<App />);
     act(() => {
       history.push('/drinks/15997');
@@ -129,8 +132,6 @@ describe('testando a paginda de receitas favoritas', () => {
     userEvent.click(btnFavRecipe);
     func2(btnFavRecipe);
 
-    const favLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    expect(favLocal.length).toBe(1);
     act(() => {
       history.push(path1);
     });
@@ -139,7 +140,6 @@ describe('testando a paginda de receitas favoritas', () => {
     const favBtn = screen.getByTestId(fav);
     expect(favBtn).toBeInTheDocument();
     userEvent.click(favBtn);
-    const favLoca = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    expect(favLoca.length).toBe(0);
+    userEvent.click(shareBtn);
   });
 });
