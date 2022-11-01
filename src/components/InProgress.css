@@ -1,3 +1,16 @@
 .scratched {
   text-decoration: line-through solid black;
 }
+
+.Recipe__label {
+  color: #1a1b1c;
+  display: flex;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  margin: 8px;
+}
+
+.Recipe__Ingredient__name {
+  margin-left: 10px;
+}

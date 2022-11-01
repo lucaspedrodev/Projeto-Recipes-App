@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context/Context';
+
 import './MealsAndDrick.css';
 import './Buttons-favorite-share.css';
+
 import RecommendationDrink from './RecommendationDrink';
 import ButtonStartRecipe from './ButtonStartRecipe';
 import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
