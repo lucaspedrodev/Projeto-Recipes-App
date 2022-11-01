@@ -1,9 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+
 import Context from '../Context/Context';
 import { localStorageDoneRecipes, localStorageInProgressRecipes } from '../serviceLocal';
+
 import ButtonFavoriteRecipe from './ButtonFavoriteRecipe';
 import ButtonShareRecipe from './ButtonShareRecipe';
+import DrinkDetailsHeader from '../images/DrinkDetailsHeader.svg';
+
+import './MealsAndDrick.css';
+import './Buttons-favorite-share.css';
 import './InProgress.css';
 
 export default function DrinkInProgress() {
@@ -40,7 +46,7 @@ export default function DrinkInProgress() {
 
   const handleCheckbox = (target, element) => {
     if (target.checked) {
-      target.parentNode.className = 'scratched';
+      target.parentNode.className = 'Recipe__label scratched';
       getLocal.drinks[id] = [...getLocal.drinks[id], element];
       localStorage.setItem('inProgressRecipes', JSON.stringify(getLocal));
       if (JSON.stringify(getLocal.drinks[id]) === JSON.stringify(drinkIngredients)) {
@@ -49,7 +55,7 @@ export default function DrinkInProgress() {
         setFinishDisible(true);
       }
     } else {
-      target.parentNode.className = '';
+      target.parentNode.className = 'Recipe__label';
       const arrayLocalId = [...getLocal.drinks[id]];
       const index = arrayLocalId.indexOf(element);
       arrayLocalId.splice(index, 1);
@@ -79,42 +85,63 @@ export default function DrinkInProgress() {
   };
 
   return (
-    <main>
-      <img
-        src={ drinkData.strDrinkThumb }
-        alt={ drinkData.strDrink }
-        data-testid="recipe-photo"
-      />
-      <h1 data-testid="recipe-title">{drinkData.strDrink}</h1>
-      <p data-testid="recipe-category">{drinkData.strCategory}</p>
-      <ButtonShareRecipe />
-      <ButtonFavoriteRecipe />
-      <div data-testid="instructions">
-        {drinkIngredients.map((e, index) => (
-          <label
-            htmlFor={ index }
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-            className={ getLocal.drinks[id].includes(e) ? 'scratched' : '' }
-          >
-            <input
-              type="checkbox"
-              id={ index }
-              checked={ getLocal.drinks[id].includes(e) || onchange }
-              onChange={ ({ target }) => handleCheckbox(target, e) }
-            />
-            <p>{e}</p>
-          </label>
-        ))}
-      </div>
+    <>
+      <header className="Recipe-header">
+        <nav className="Btns__share__favorite__container">
+          <div className="Recipe__category__container">
+            <img src={ DrinkDetailsHeader } alt="Drink Details Header" />
+            <p data-testid="recipe-category">{drinkData.strCategory}</p>
+          </div>
+          <div className="Btns__container">
+            <ButtonShareRecipe />
+            <ButtonFavoriteRecipe />
+          </div>
+        </nav>
+        <img
+          src={ drinkData.strDrinkThumb }
+          alt={ drinkData.strDrink }
+          data-testid="recipe-photo"
+          className="recipe-photo"
+        />
+        <h1 data-testid="recipe-title" className="recipe-title">{drinkData.strDrink}</h1>
+      </header>
+      <main className="Foods-recipe-main">
+        <h1 className="recipe-titles">Ingredients</h1>
+        <div data-testid="instructions" className="Foods-recipe-ingredient">
+          {drinkIngredients.map((e, index) => (
+            <label
+              htmlFor={ index }
+              key={ index }
+              data-testid={ `${index}-ingredient-step` }
+              className={ getLocal.drinks[id].includes(e)
+                ? 'Recipe__label scratched' : 'Recipe__label' }
+            >
+              <input
+                type="checkbox"
+                id={ index }
+                checked={ getLocal.drinks[id].includes(e) || onchange }
+                onChange={ ({ target }) => handleCheckbox(target, e) }
+              />
+              <p className="Recipe__Ingredient__name">{e}</p>
+            </label>
+          ))}
+        </div>
+        <h1 className="recipe-titles">Instructions</h1>
+        <div className="Foods-recipe-instructions">
+          <p data-testid="instructions">
+            {drinkData.strInstructions}
+          </p>
+        </div>
+      </main>
       <button
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ finishDisible }
         onClick={ finishRecipe }
+        className="start-recipe-btn"
       >
         finish
       </button>
-    </main>
+    </>
   );
 }

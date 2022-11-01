@@ -145,16 +145,16 @@ export default function MealInProgress() {
             name="Vídeo"
           />
         </div>
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          disabled={ finishDisible }
-          onClick={ finishRecipe }
-          className="start-recipe-btn"
-        >
-          finish recipe
-        </button>
       </main>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ finishDisible }
+        onClick={ finishRecipe }
+        className="start-recipe-btn"
+      >
+        finish recipe
+      </button>
     </>
   );
 }
