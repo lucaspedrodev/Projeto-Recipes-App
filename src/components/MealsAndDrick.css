@@ -26,14 +26,6 @@
   width: 70%;
 }
 
-.recipe-category {
-  letter-spacing: 0.105em;
-  line-height: 20px;
-  margin: 20px auto;
-  text-align: center;
-  width: 100%;
-}
-
 .recipe-titles {
   color: #1a1b1c;
   font-size: 20px;

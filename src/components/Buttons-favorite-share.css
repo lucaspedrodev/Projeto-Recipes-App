@@ -1,5 +1,27 @@
 .btns-share-favorite {
   align-content: center;
+  color: #fcc436;
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  position: absolute;
+  top: 7px;
+  width: 100%;
+}
+
+.btns {
+  display: flex;
+  margin-right: 6px;
+}
+
+.recipe-category {
+  align-items: center;
+  display: flex;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 12px;
+  margin-left: 6px;
+}
+
+.recipe-category p {
+  margin-left: 3px;
 }
