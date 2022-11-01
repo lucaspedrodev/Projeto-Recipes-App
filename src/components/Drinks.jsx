@@ -14,7 +14,7 @@ import CardDrinks from '../pages/CardDrink';
 export default function Drinks() {
   const [drinks, setDrinks] = useState([]);
   const [drinksCat, setDrinksCat] = useState([]);
-  const { call } = useContext(Context);
+  const { call, setCall } = useContext(Context);
 
   useEffect(() => {
     const getCocktail = async () => {
@@ -35,11 +35,13 @@ export default function Drinks() {
     const endPoin = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     const reponse = await (await fetch(endPoin)).json();
     setDrinks(reponse.drinks.slice(0, Number('12')));
+    setCall(false);
   };
 
   const handleFilter2 = async (targets) => {
     const get = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${targets.value}`;
     const getJson = await (await fetch(get)).json();
+    setCall(false);
     if (targets.checked) {
       setDrinks(getJson.drinks.slice(0, Number('12')));
     } else {

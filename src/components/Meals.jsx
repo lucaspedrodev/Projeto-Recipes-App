@@ -13,7 +13,7 @@ import CardMeals from '../pages/CardMeals';
 export default function Meals() {
   const [meals, setMeals] = useState([]);
   const [mealsCat, setMealsCat] = useState([]);
-  const { call } = useContext(Context);
+  const { call, setCall } = useContext(Context);
 
   useEffect(() => {
     const getMeal = async () => {
@@ -34,11 +34,13 @@ export default function Meals() {
     const endPoin = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
     const reponse = await (await fetch(endPoin)).json();
     setMeals(reponse.meals.slice(0, Number('12')));
+    setCall(false);
   };
 
   const handleFilter = async (targets) => {
     const get = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${targets.value}`;
     const getJson = await (await fetch(get)).json();
+    setCall(false);
     if (targets.checked) {
       setMeals(getJson.meals.slice(0, Number('12')));
     } else {

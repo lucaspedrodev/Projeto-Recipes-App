@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import Context from '../Context/Context';
 
-export default function Drinks() {
+export default function CardDrinks() {
   const { recipesData } = useContext(Context);
   return (
-
     <main>
       {recipesData.map((recipe, index) => (
         <div key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
@@ -17,6 +16,5 @@ export default function Drinks() {
         </div>
       ))}
     </main>
-
   );
 }

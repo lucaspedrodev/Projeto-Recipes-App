@@ -3,7 +3,6 @@ import Context from '../Context/Context';
 
 export default function CardMeals() {
   const { recipesData } = useContext(Context);
-
   return (
     <main>
       {recipesData.map((recipe, index) => (
