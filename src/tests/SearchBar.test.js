@@ -11,6 +11,7 @@ const testIdSearchIngredientRadio = 'ingredient-search-radio';
 const testIdSearchFirstLetterRadio = 'first-letter-search-radio';
 const testIdSearchButton = 'exec-search-btn';
 const testIdRecipeCard = '1-recipe-card';
+const alert = 'Sorry, we haven\'t found any recipes for these filters.';
 
 describe('test component SearchBar', () => {
   jest.setTimeout(60000);
@@ -141,13 +142,15 @@ describe('test component SearchBar', () => {
     userEvent.click(searchButton);
   });
 
-  test('check if returns alert when requests is null ', async () => {
-    // problem to alert
-    /*  const { history } = renderWithRouter(<App />);
+  test('check if returns alert when request by ingredients is null ', () => {
+    const { history } = renderWithRouter(<App />);
+    // global.alert = jest.fn().mockResolvedValue(alert);
+    jest.spyOn(global, 'alert').mockReturnValue(alert);
+
     act(() => {
       history.push('/meals');
     });
-
+    console.log(history);
     const buttonSearch = screen.getByTestId(testIdSearchTop);
     userEvent.click(buttonSearch);
 
@@ -162,15 +165,12 @@ describe('test component SearchBar', () => {
     expect(searchIngredient).toBeChecked();
 
     const searchButton = screen.getByTestId(testIdSearchButton);
-    userEvent.click(searchButton); */
-    // expect(alertMock).toHaveBeenCalledTimes(1);
+    userEvent.click(searchButton);
+
+    // expect(global.alert).toHaveBeenCalled();
+    expect(global.alert()).toBe(alert);
   });
 
-  // meals tests
-
-  //---------------------------------------------------
-
-  // drink
   test(' check if returns endpoints by first letter on drinks  ', async () => {
     const { history } = renderWithRouter(<App />);
 
@@ -271,5 +271,32 @@ describe('test component SearchBar', () => {
       { timeout: 30000 },
     );
     expect(recipeCard).toBeInTheDocument();
+  });
+
+  test('check if returns alert when requests by name is null ', () => {
+    const { history } = renderWithRouter(<App />);
+    jest.spyOn(global, 'alert').mockReturnValue(alert);
+
+    act(() => {
+      history.push('/meals');
+    });
+    console.log(history);
+    const buttonSearch = screen.getByTestId(testIdSearchTop);
+    userEvent.click(buttonSearch);
+
+    const searchInput = screen.getByTestId(testIdSearchInput);
+    expect(searchInput).toBeDefined();
+    userEvent.type(searchInput, 'coxinha');
+    expect(searchInput).toHaveValue('coxinha');
+
+    const nameSearchInput = screen.getByTestId(testIdSearchNameRadio);
+    expect(nameSearchInput).toBeDefined();
+    userEvent.click(nameSearchInput);
+    expect(nameSearchInput).toBeChecked();
+
+    const searchButton = screen.getByTestId(testIdSearchButton);
+    userEvent.click(searchButton);
+
+    expect(global.alert()).toBe(alert);
   });
 });
