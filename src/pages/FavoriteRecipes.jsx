@@ -64,7 +64,7 @@ export default function FavoriteRecipes() {
           Drinks
         </button>
       </div>
-      {favs.map((element, i) => (
+      {favs?.map((element, i) => (
         element.type.includes('meal')
           ? (
             <div key={ i }>
