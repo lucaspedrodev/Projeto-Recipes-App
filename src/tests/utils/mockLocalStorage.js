@@ -17,7 +17,7 @@ export const mockFavoriteLocal = [{
   image: '',
 }];
 
-export const mockFavRecipeLocal = [{
+export const mockFavRecipeLocal = JSON.stringify([{
   alcoholicOrNot: '',
   category: 'Vegetarian',
   id: '52772',
@@ -33,7 +33,7 @@ export const mockFavRecipeLocal = [{
   name: 'GG',
   nationality: '',
   type: 'drink',
-}];
+}]);
 
 export const mockEmail = { email: 'alguem@alguem.com.br' };
 

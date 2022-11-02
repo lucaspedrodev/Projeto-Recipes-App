@@ -4,17 +4,19 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
+import { mockFavRecipeLocal } from './utils/mockLocalStorage';
 
 const testid = '0-horizontal-image';
 const testid2 = '0-horizontal-name';
 const favBtnId = 'favorite-btn';
 const fav = '0-horizontal-favorite-btn';
+const fav2 = '1-horizontal-favorite-btn';
 const share = '0-horizontal-share-btn';
+const share2 = '1-horizontal-share-btn';
 const role = 'src';
 const func = (ele) => expect(ele).toHaveAttribute(role, 'whiteHeartIcon.svg');
 const func2 = (ele) => expect(ele).toHaveAttribute(role, 'blackHeartIcon.svg');
 const path1 = '/favorite-recipes';
-const titles = 'Teriyaki Chicken Casserole';
 
 describe('testando a paginda de receitas favoritas', () => {
   jest.setTimeout(40000);
@@ -94,25 +96,20 @@ describe('testando a paginda de receitas favoritas', () => {
       writeText: jest.fn(),
     };
     global.navigator.clipboard = mockClipboard;
+    Object.defineProperty(global, 'localStorage', { value: {
+      getItem: () => mockFavRecipeLocal,
+      setItem: () => undefined,
+    } });
     const { history } = renderWithRouter(<App />);
-    act(() => {
-      history.push('/drinks/15997');
-    });
-    const btnFavRecipe = await screen.findByTestId(favBtnId, {}, { timeout: 30000 });
-    expect(btnFavRecipe).toBeInTheDocument();
-    func(btnFavRecipe);
-
-    userEvent.click(btnFavRecipe);
-    func2(btnFavRecipe);
 
     act(() => {
       history.push(path1);
     });
-    const shareBtn = screen.getByTestId(share);
+    const shareBtn = screen.getByTestId(share2);
     expect(shareBtn).toBeInTheDocument();
-    const favBtn = screen.getByTestId(fav);
+    const favBtn = screen.getByTestId(fav2);
     expect(favBtn).toBeInTheDocument();
-    // userEvent.click(shareBtn);
+    userEvent.click(shareBtn);
     userEvent.click(favBtn);
   });
   it('testando os botões - meals', async () => {
@@ -121,27 +118,15 @@ describe('testando a paginda de receitas favoritas', () => {
       writeText: jest.fn(),
     };
     global.navigator.clipboard = mockClipboard;
+    Object.defineProperty(global, 'localStorage', { value: {
+      getItem: () => mockFavRecipeLocal,
+      setItem: () => undefined,
+    } });
     const { history } = renderWithRouter(<App />);
-    act(() => {
-      history.push('/meals/52772');
-    });
-
-    const title = await screen.findByText(titles);
-    expect(title).toBeInTheDocument();
-
-    const btnFavRecipe = await screen.findByTestId(favBtnId, {}, { timeout: 30000 });
-    expect(btnFavRecipe).toBeInTheDocument();
-    func(btnFavRecipe);
-
-    userEvent.click(btnFavRecipe);
-    func2(btnFavRecipe);
 
     act(() => {
       history.push(path1);
     });
-
-    const title2 = await screen.findByText(titles);
-    expect(title2).toBeInTheDocument();
 
     const shareBtn = screen.getByTestId(share);
     expect(shareBtn).toBeInTheDocument();
@@ -152,7 +137,5 @@ describe('testando a paginda de receitas favoritas', () => {
     const link = screen.getByTestId('link-copied');
     expect(link).toBeInTheDocument();
     userEvent.click(favBtn);
-
-    expect(title2).not.toBeInTheDocument();
   });
 });
