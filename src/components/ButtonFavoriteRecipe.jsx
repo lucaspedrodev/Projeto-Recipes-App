@@ -43,8 +43,17 @@ export default function ButtonFavoriteRecipe() {
   }, [history.location.pathname]);
 
   const favoriteRecipe = () => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favData));
-    setFavIcon(true);
+    const local = JSON.parse(localStorage
+      .getItem('favoriteRecipes'));
+    if (local === null) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favData));
+      setFavIcon(true);
+    } else {
+      const local1 = JSON.parse(localStorage
+        .getItem('favoriteRecipes'));
+      localStorage.setItem('favoriteRecipes', JSON.stringify([...local1, ...favData]));
+      setFavIcon(true);
+    }
   };
 
   const unfavorRecipe = () => {
@@ -63,6 +72,7 @@ export default function ButtonFavoriteRecipe() {
           src={ whiteHeart }
           className="Share__favorite__btn"
         >
+          Favorite
           <img src={ whiteHeart } alt="whiteHeart" />
         </button>
       </div>
@@ -77,6 +87,7 @@ export default function ButtonFavoriteRecipe() {
         src={ blackHeart }
         className="Share__favorite__btn"
       >
+        Unfavorite
         <img src={ blackHeart } alt="blackHeart" />
       </button>
     </div>

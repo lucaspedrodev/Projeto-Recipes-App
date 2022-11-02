@@ -94,6 +94,10 @@ describe('Testando o RecipeDetails', () => {
   });
 
   test('teste drink', () => {
+    const mockClipboard = {
+      writeText: jest.fn(),
+    };
+    global.navigator.clipboard = mockClipboard;
     const { history } = renderWithRouter(<App />);
 
     act(() => {
@@ -103,5 +107,8 @@ describe('Testando o RecipeDetails', () => {
     const btnfavorite = screen.getByTestId(favBtnId);
     expect(btnfavorite).toBeInTheDocument();
     userEvent.click(btnfavorite);
+
+    const shareBtn = screen.getByTestId('share-btn');
+    userEvent.click(shareBtn);
   });
 });

@@ -15,7 +15,6 @@ export default function FavoriteRecipes() {
     setFavs(us);
     setFavs2(us);
   }, []);
-  console.log(favs);
   const handleClip = (id, type) => {
     clip(`http://localhost:3000/${type}s/${id}`);
     setText(true);
@@ -40,7 +39,7 @@ export default function FavoriteRecipes() {
   return (
     <div>
       <Header />
-      { text && (<p>Link copied!</p>)}
+      { text && (<p data-testid="link-copied">Link copied!</p>)}
       <div>
         <button
           type="button"
