@@ -6,7 +6,6 @@ import App from '../App';
 import renderWithRouter from './renderWithRouter';
 import { setLocalStorage } from './utils/mockLocalStorage';
 
-
 const mockRecipes = [
   {
     id: '178359',
@@ -39,9 +38,7 @@ const filterByDrinkBtn = 'filter-by-drink-btn';
 const DoneRecipesRoute = '/done-recipes';
 const drinkName = 'Kiwi Martini';
 const mealName = 'General Tso\'s Chicken';
-const shareButton0 = '0-horizontal-share-btn'
-const shareButton1 = '1-horizontal-share-btn'
-
+const shareButton0 = '0-horizontal-share-btn';
 
 describe('test  DoneRecipes page ', () => {
   test('checks if the elements exist on the screen', () => {
@@ -61,14 +58,14 @@ describe('test  DoneRecipes page ', () => {
     expect(drinkButton).toBeDefined();
   });
 
-  test('checks if the meal button renders meal recipes', async  () => {
+  test('checks if the meal button renders meal recipes', async () => {
     const mockClipboard = {
       writeText: jest.fn(),
     };
 
     global.navigator.clipboard = mockClipboard;
 
-    setLocalStorage('doneRecipes', mockRecipes );
+    setLocalStorage('doneRecipes', mockRecipes);
 
     const { history } = renderWithRouter(<App />);
 
@@ -83,14 +80,12 @@ describe('test  DoneRecipes page ', () => {
     const mealEle = screen.findByText(mealName);
     expect(mealEle).toBeDefined();
 
-    const shareBtn= await screen.findByTestId(shareButton0);
-    userEvent.click(shareBtn); 
-
+    const shareBtn = await screen.findByTestId(shareButton0);
+    userEvent.click(shareBtn);
   });
 
-  test('checks if the all button renders all recipes', async  () => {
-
-    setLocalStorage('doneRecipes', mockRecipes );
+  test('checks if the all button renders all recipes', async () => {
+    setLocalStorage('doneRecipes', mockRecipes);
 
     const { history } = renderWithRouter(<App />);
 
@@ -106,12 +101,16 @@ describe('test  DoneRecipes page ', () => {
     expect(mealEle).toBeDefined();
     const drinkEle = screen.findByText(drinkName);
     expect(drinkEle).toBeDefined();
-
   });
 
-  test('checks if the all button renders all recipes', async  () => {
+  test('checks if the drink button renders drink recipes', async () => {
+    const mockClipboard = {
+      writeText: jest.fn(),
+    };
 
-    setLocalStorage('doneRecipes', mockRecipes );
+    global.navigator.clipboard = mockClipboard;
+
+    setLocalStorage('doneRecipes', mockRecipes);
 
     const { history } = renderWithRouter(<App />);
 
@@ -126,5 +125,7 @@ describe('test  DoneRecipes page ', () => {
     const drinkEle = screen.findByText(drinkName);
     expect(drinkEle).toBeDefined();
 
+    const shareBtn = await screen.findByTestId(shareButton0);
+    userEvent.click(shareBtn);
   });
 });
