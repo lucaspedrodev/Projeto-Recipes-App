@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
@@ -9,8 +9,8 @@ export default function DoneRecipesCard(props) {
   const { doneRecipe, index } = props;
   const [copyLink, setCopyLink] = useState(false);
 
-  const copyUrl = () => {
-    clip(`http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}`);
+  const copyUrl = (param) => {
+    clip(`http://localhost:3000/${param.type}s/${param.id}`);
     setCopyLink(true);
   };
   return (
@@ -21,10 +21,10 @@ export default function DoneRecipesCard(props) {
           <Link key={ index } to={ `/meals/${doneRecipe.id}` }>
             <p data-testid={ `${index}-horizontal-name` }>{doneRecipe.name}</p>
             <img
-              data-testid={ `${index}-horizontal-image` } 
+              data-testid={ `${index}-horizontal-image` }
               src={ doneRecipe.image }
               alt={ doneRecipe.name }
-              width='100'
+              width="100"
             />
           </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>
@@ -60,6 +60,7 @@ export default function DoneRecipesCard(props) {
               data-testid={ `${index}-horizontal-image` }
               src={ doneRecipe.image }
               alt={ doneRecipe.name }
+              width="100"
             />
           </Link>
           <p data-testid={ `${index}-horizontal-top-text` }>

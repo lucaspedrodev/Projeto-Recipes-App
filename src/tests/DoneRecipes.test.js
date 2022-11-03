@@ -1,10 +1,9 @@
 import React from 'react';
-import { fireEvent, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
-import DoneRecipes from '../pages/DoneRecipes';
 
 const mockRecipes = [
   {
@@ -61,8 +60,8 @@ describe('test  DoneRecipes page ', () => {
     const { history } = renderWithRouter(<App />);
 
     global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockRecipes)
-    })
+      json: jest.fn().mockResolvedValue(mockRecipes),
+    });
 
     act(() => {
       history.push(DoneRecipesRoute);
@@ -77,8 +76,7 @@ describe('test  DoneRecipes page ', () => {
     const drinkEle = screen.findByText(drinkName);
     expect(drinkEle).toBeDefined();
     const mealEle = screen.findByText(mealName);
-    expect(mealEle).toBeDefined(); 
-
+    expect(mealEle).toBeDefined();
   });
   /* test('checks if the meal button renders meal recipes', () => {
     const { history } = renderWithRouter(<App />);
@@ -129,7 +127,5 @@ describe('test  DoneRecipes page ', () => {
     act(() => {
       history.push(DoneRecipesRoute);
     });
-
   });
-  
 });
