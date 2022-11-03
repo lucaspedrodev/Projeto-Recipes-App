@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -61,8 +62,10 @@ export default function Header() {
     <>
       <header className="Header__container">
         <div className="Header__container__1">
-          <img src={ Bell } alt="campaninha" />
-          <img className="Header__logo" src={ logoRecipesapp } alt="logo Recipes app" />
+          <Link to="/meals">
+            <img src={ Bell } alt="campaninha" />
+            <img className="Header__logo" src={ logoRecipesapp } alt="logo Recipes app" />
+          </Link>
         </div>
         <div className="Header__container__2">
           {(route === '/meals' || route === '/drinks') && (
