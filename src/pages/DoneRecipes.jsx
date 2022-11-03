@@ -73,7 +73,7 @@ export default function DoneRecipes() {
           <p>Drinks</p>
         </div>
       </div>
-      <div>
+      <div className="Card__Done__container">
         {localStorageRecipes?.map((recipe, index) => (
           <DoneRecipesCard key={ recipe.id } doneRecipe={ recipe } index={ index } />
         ))}

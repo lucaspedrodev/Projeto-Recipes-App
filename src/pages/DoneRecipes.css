@@ -18,3 +18,10 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.Card__Done__container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 85%;
+}
