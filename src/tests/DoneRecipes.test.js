@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
+import { setLocalStorage } from './utils/mockLocalStorage';
 
 const mockRecipes = [
   {
@@ -37,6 +38,7 @@ const filterByDrinkBtn = 'filter-by-drink-btn';
 const DoneRecipesRoute = '/done-recipes';
 const drinkName = 'Kiwi Martini';
 const mealName = 'General Tso\'s Chicken';
+const shareButton0 = '0-horizontal-share-btn';
 
 describe('test  DoneRecipes page ', () => {
   test('checks if the elements exist on the screen', () => {
@@ -56,40 +58,20 @@ describe('test  DoneRecipes page ', () => {
     expect(drinkButton).toBeDefined();
   });
 
-  test('checks if the all button renders all recipes', () => {
-    const { history } = renderWithRouter(<App />);
+  test('checks if the meal button renders meal recipes', async () => {
+    const mockClipboard = {
+      writeText: jest.fn(),
+    };
 
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockRecipes),
-    });
+    global.navigator.clipboard = mockClipboard;
+
+    setLocalStorage('doneRecipes', mockRecipes);
+
+    const { history } = renderWithRouter(<App />);
 
     act(() => {
       history.push(DoneRecipesRoute);
     });
-
-    expect(history.location.pathname).toBe(DoneRecipesRoute);
-
-    const allButton = screen.getByTestId(filterByAllBtn);
-    expect(allButton).toBeDefined();
-    userEvent.click(allButton);
-
-    const drinkEle = screen.findByText(drinkName);
-    expect(drinkEle).toBeDefined();
-    const mealEle = screen.findByText(mealName);
-    expect(mealEle).toBeDefined();
-  });
-  /* test('checks if the meal button renders meal recipes', () => {
-    const { history } = renderWithRouter(<App />);
-
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockRecipes)
-    })
-
-    act(() => {
-      history.push(DoneRecipesRoute);
-    });
-
-    expect(history.location.pathname).toBe(DoneRecipesRoute);
 
     const mealButton = screen.getByTestId(filterByMealBtn);
     expect(mealButton).toBeDefined();
@@ -98,20 +80,43 @@ describe('test  DoneRecipes page ', () => {
     const mealEle = screen.findByText(mealName);
     expect(mealEle).toBeDefined();
 
+    const shareBtn = await screen.findByTestId(shareButton0);
+    userEvent.click(shareBtn);
   });
 
-  test('checks if the drink button renders drink recipes', () => {
-    const { history } = renderWithRouter(<App />);
+  test('checks if the all button renders all recipes', async () => {
+    setLocalStorage('doneRecipes', mockRecipes);
 
-    global.fetch = jest.fn().mockResolvedValue({
-      json: jest.fn().mockResolvedValue(mockRecipes)
-    })
+    const { history } = renderWithRouter(<App />);
 
     act(() => {
       history.push(DoneRecipesRoute);
     });
 
-    expect(history.location.pathname).toBe(DoneRecipesRoute);
+    const allButton = screen.getByTestId(filterByAllBtn);
+    expect(allButton).toBeDefined();
+    userEvent.click(allButton);
+
+    const mealEle = screen.findByText(mealName);
+    expect(mealEle).toBeDefined();
+    const drinkEle = screen.findByText(drinkName);
+    expect(drinkEle).toBeDefined();
+  });
+
+  test('checks if the drink button renders drink recipes', async () => {
+    const mockClipboard = {
+      writeText: jest.fn(),
+    };
+
+    global.navigator.clipboard = mockClipboard;
+
+    setLocalStorage('doneRecipes', mockRecipes);
+
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push(DoneRecipesRoute);
+    });
 
     const drinkButton = screen.getByTestId(filterByDrinkBtn);
     expect(drinkButton).toBeDefined();
@@ -119,13 +124,8 @@ describe('test  DoneRecipes page ', () => {
 
     const drinkEle = screen.findByText(drinkName);
     expect(drinkEle).toBeDefined();
-  }); */
 
-  test('checks if the all button renders all recipes', () => {
-    const { history } = renderWithRouter(<App />);
-
-    act(() => {
-      history.push(DoneRecipesRoute);
-    });
+    const shareBtn = await screen.findByTestId(shareButton0);
+    userEvent.click(shareBtn);
   });
 });
