@@ -1,36 +1,88 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import shareIcon from '../images/shareIcon.svg';
 
-export default function DoneRecipes(props) {
-  const { recipesList } = props;
+const clip = require('clipboard-copy');
+
+export default function DoneRecipesCard(props) {
+  const { doneRecipe, index } = props;
+  const [copyLink, setCopyLink] = useState(false);
+
+  const copyUrl = () => {
+    clip(`http://localhost:3000/${doneRecipe.type}s/${doneRecipe.id}`);
+    setCopyLink(true);
+  };
   return (
-    <div>
-      {recipesList.map((recipe, index) => (
-        <main key={ recipe.id }>
-          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+    <main>
+      {doneRecipe.type === 'meal' ? (
+        <div key={ doneRecipe.id }>
+          { copyLink && (<p>Link copied!</p>)}
+          <Link key={ index } to={ `/meals/${doneRecipe.id}` }>
+            <p data-testid={ `${index}-horizontal-name` }>{doneRecipe.name}</p>
             <img
-              data-testid={ `${index}-horizontal-image` }
-              src={ recipe.image }
-              alt={ recipe.name }
+              data-testid={ `${index}-horizontal-image` } 
+              src={ doneRecipe.image }
+              alt={ doneRecipe.name }
+              width='100'
             />
           </Link>
-          <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
-
           <p data-testid={ `${index}-horizontal-top-text` }>
-            {recipe.nationality}
+            {doneRecipe.nationality}
             {' '}
-            {recipe.category}
+            -
+            {' '}
+            {doneRecipe.category}
           </p>
-          <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-          <p data-testid={ `${index}-${recipe.tags}-horizontal-tag` }>
-            {recipe.tags}
+          <p data-testid={ `${index}-horizontal-done-date` }>
+            {doneRecipe.doneDate}
           </p>
-          <button data-testid={ `${index}-horizontal-share-btn` } type="button">
+          {doneRecipe.tags.map((tag, i) => (
+            <p key={ i } data-testid={ `${index}-${tag}-horizontal-tag` }>
+              {tag}
+            </p>
+          ))}
+          <button
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            type="button"
+            onClick={ () => copyUrl(doneRecipe) }
+          >
             Share
           </button>
-
-        </main>
-      ))}
-    </div>
+        </div>
+      ) : (
+        <div key={ doneRecipe.id }>
+          { copyLink && (<p>Link copied!</p>)}
+          <Link key={ index } to={ `/drinks/${doneRecipe.id}` }>
+            <p data-testid={ `${index}-horizontal-name` }>{doneRecipe.name}</p>
+            <img
+              data-testid={ `${index}-horizontal-image` }
+              src={ doneRecipe.image }
+              alt={ doneRecipe.name }
+            />
+          </Link>
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {doneRecipe.alcoholicOrNot}
+          </p>
+          <p data-testid={ `${index}-horizontal-done-date` }>
+            {doneRecipe.doneDate}
+          </p>
+          <button
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            type="button"
+            onClick={ () => copyUrl(doneRecipe) }
+          >
+            Share
+          </button>
+        </div>
+      )}
+    </main>
   );
 }
+
+DoneRecipesCard.propTypes = {
+  doneRecipe: PropTypes.objectOf(PropTypes.arrayOf).isRequired,
+  index: PropTypes.number.isRequired,
+};

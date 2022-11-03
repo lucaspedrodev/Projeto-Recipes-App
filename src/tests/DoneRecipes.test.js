@@ -1,9 +1,10 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
+import DoneRecipes from '../pages/DoneRecipes';
 
 const mockRecipes = [
   {
@@ -35,6 +36,8 @@ const filterByAllBtn = 'filter-by-all-btn';
 const filterByMealBtn = 'filter-by-meal-btn';
 const filterByDrinkBtn = 'filter-by-drink-btn';
 const DoneRecipesRoute = '/done-recipes';
+const drinkName = 'Kiwi Martini';
+const mealName = 'General Tso\'s Chicken';
 
 describe('test  DoneRecipes page ', () => {
   test('checks if the elements exist on the screen', () => {
@@ -46,21 +49,87 @@ describe('test  DoneRecipes page ', () => {
 
     expect(history.location.pathname).toBe(DoneRecipesRoute);
 
-    const allButton = screen.getAllByTestId(filterByAllBtn);
+    const allButton = screen.getByTestId(filterByAllBtn);
     expect(allButton).toBeDefined();
-    const mealButton = screen.getAllByTestId(filterByMealBtn);
+    const mealButton = screen.getByTestId(filterByMealBtn);
     expect(mealButton).toBeDefined();
-    const drinkButton = screen.getAllByTestId(filterByDrinkBtn);
+    const drinkButton = screen.getByTestId(filterByDrinkBtn);
     expect(drinkButton).toBeDefined();
   });
 
-  test('', () => {
+  test('checks if the all button renders all recipes', () => {
     const { history } = renderWithRouter(<App />);
+
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockRecipes)
+    })
 
     act(() => {
       history.push(DoneRecipesRoute);
     });
 
     expect(history.location.pathname).toBe(DoneRecipesRoute);
+
+    const allButton = screen.getByTestId(filterByAllBtn);
+    expect(allButton).toBeDefined();
+    userEvent.click(allButton);
+
+    const drinkEle = screen.findByText(drinkName);
+    expect(drinkEle).toBeDefined();
+    const mealEle = screen.findByText(mealName);
+    expect(mealEle).toBeDefined(); 
+
   });
+  /* test('checks if the meal button renders meal recipes', () => {
+    const { history } = renderWithRouter(<App />);
+
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockRecipes)
+    })
+
+    act(() => {
+      history.push(DoneRecipesRoute);
+    });
+
+    expect(history.location.pathname).toBe(DoneRecipesRoute);
+
+    const mealButton = screen.getByTestId(filterByMealBtn);
+    expect(mealButton).toBeDefined();
+    userEvent.click(mealButton);
+
+    const mealEle = screen.findByText(mealName);
+    expect(mealEle).toBeDefined();
+
+  });
+
+  test('checks if the drink button renders drink recipes', () => {
+    const { history } = renderWithRouter(<App />);
+
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockRecipes)
+    })
+
+    act(() => {
+      history.push(DoneRecipesRoute);
+    });
+
+    expect(history.location.pathname).toBe(DoneRecipesRoute);
+
+    const drinkButton = screen.getByTestId(filterByDrinkBtn);
+    expect(drinkButton).toBeDefined();
+    userEvent.click(drinkButton);
+
+    const drinkEle = screen.findByText(drinkName);
+    expect(drinkEle).toBeDefined();
+  }); */
+
+  test('checks if the all button renders all recipes', () => {
+    const { history } = renderWithRouter(<App />);
+
+    act(() => {
+      history.push(DoneRecipesRoute);
+    });
+
+  });
+  
 });

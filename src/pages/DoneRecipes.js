@@ -3,23 +3,25 @@ import Header from '../components/Header';
 import DoneRecipesCard from '../components/DoneRecipesCard';
 
 export default function DoneRecipes() {
-  const [localDoneRecipes, setLocalDoneRecipes] = useState([]);
+  const [localStorageRecipes, setLocalStorageRecipes] = useState([]);
+  const [allDoneRecipes, setAllDoneRecipes] = useState([]);
 
   useEffect(() => {
     const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    setLocalDoneRecipes(recipes);
+    setLocalStorageRecipes(recipes);
+    setAllDoneRecipes(recipes);
   }, []);
 
   const filterByValue = ({ target }) => {
     const { value } = target;
-    if (value === buttonMeal) {
-      const filterMeals = recipes.filter((recipe) => recipe.type.includes(/meal/i));
-      setLocalDoneRecipes(filterMeals);
-    } else if (value === buttonDrink) {
-      const filterDrinks = recipes.filter((recipe) => recipe.type.includes(/drink/i));
-      setLocalDoneRecipes(filterDrinks);
+    if (value === 'buttonMeal') {
+      const filterMeals = localStorageRecipes.filter((e) => e.type.includes('meal'));
+      setLocalStorageRecipes(filterMeals);
+    } else if (value === 'buttonDrink') {
+      const filterDrinks = localStorageRecipes.filter((e) => e.type.includes('drink'));
+      setLocalStorageRecipes(filterDrinks);
     } else {
-      setLocalDoneRecipes(recipes);
+      setLocalStorageRecipes(allDoneRecipes);
     }
   };
 
@@ -30,7 +32,7 @@ export default function DoneRecipes() {
         data-testid="filter-by-all-btn"
         type="button"
         value="buttonAll"
-        onChange={ filterByValue }
+        onClick={ filterByValue }
       >
         All
       </button>
@@ -38,7 +40,7 @@ export default function DoneRecipes() {
         data-testid="filter-by-meal-btn"
         type="button"
         value="buttonMeal"
-        onChange={ filterByValue }
+        onClick={ filterByValue }
       >
         Meals
       </button>
@@ -46,13 +48,13 @@ export default function DoneRecipes() {
         data-testid="filter-by-drink-btn"
         type="button"
         value="buttonDrink"
-        onChange={ filterByValue }
+        onClick={ filterByValue }
       >
         Drinks
       </button>
       <div>
-        {localDoneRecipes?.map((recipe, index) => (
-          <DoneRecipesCard key={ recipe.id } recipesList={ recipe } index={ index } />
+        {localStorageRecipes?.map((recipe, index) => (
+          <DoneRecipesCard key={ recipe.id } doneRecipe={ recipe } index={ index } />
         ))}
       </div>
     </main>
