@@ -4,6 +4,15 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 import Context from '../Context/Context';
+import './Header.css';
+
+import logoRecipesapp from '../images/logoRecipesapp.svg';
+import Bell from '../images/Bell.svg';
+import drinkIcon from '../images/drinkIcon.svg';
+import mealIcon from '../images/mealIcon.svg';
+import favoriteIcon from '../images/favoriteIcon.svg';
+import perfilIcon from '../images/perfilIcon.svg';
+import doneIcon from '../images/doneIcon.svg';
 
 export default function Header() {
   const { appearSearchBar, searchBarAppear } = useContext(Context);
@@ -29,26 +38,60 @@ export default function Header() {
     }
   };
 
+  const setImg = () => {
+    const rota = history.location.pathname;
+
+    switch (rota) {
+    case '/meals':
+      return mealIcon;
+    case '/drinks':
+      return drinkIcon;
+    case '/favorite-recipes':
+      return favoriteIcon;
+    case '/profile':
+      return perfilIcon;
+    case '/done-recipes':
+      return doneIcon;
+    default:
+      return mealIcon;
+    }
+  };
+
   return (
-    <div>
-      <h1 data-testid="page-title">{setTitles()}</h1>
-      <button type="button" onClick={ () => history.push('/profile') }>
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="profile-icon"
-        />
-      </button>
-      {(route === '/meals' || route === '/drinks') && (
-        <button onClick={ appearSearchBar } type="button">
-          <img
-            data-testid="search-top-btn"
-            src={ searchIcon }
-            alt="search=icon"
-          />
-        </button>
-      )}
+    <>
+      <header className="Header__container">
+        <div className="Header__container__1">
+          <img src={ Bell } alt="campaninha" />
+          <img className="Header__logo" src={ logoRecipesapp } alt="logo Recipes app" />
+        </div>
+        <div className="Header__container__2">
+          {(route === '/meals' || route === '/drinks') && (
+            <button onClick={ appearSearchBar } type="button" className="Header__button">
+              <img
+                data-testid="search-top-btn"
+                src={ searchIcon }
+                alt="search=icon"
+              />
+            </button>
+          )}
+          <button
+            className="Header__button"
+            type="button"
+            onClick={ () => history.push('/profile') }
+          >
+            <img
+              data-testid="profile-top-btn"
+              src={ profileIcon }
+              alt="profile-icon"
+            />
+          </button>
+        </div>
+      </header>
+      <div className="Recipe__title__container">
+        <img src={ setImg() } alt="meal icon" />
+        <h1 data-testid="page-title">{setTitles()}</h1>
+      </div>
       {searchBarAppear && <SearchBar />}
-    </div>
+    </>
   );
 }

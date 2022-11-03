@@ -1,0 +1,31 @@
+.Header__container {
+  align-items: center;
+  background: #fcdc36;
+  color: #41197f;
+  display: flex;
+  height: 52px;
+  justify-content: space-between;
+}
+
+.Header__container__1 {
+  align-items: center;
+  display: flex;
+  margin-left: 25px;
+}
+
+.Header__container__2 {
+  align-items: center;
+  display: flex;
+  margin-right: 15px;
+}
+
+.Header__logo {
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.Header__button {
+  background: none;
+  border: none;
+  margin: 0 10px;
+}

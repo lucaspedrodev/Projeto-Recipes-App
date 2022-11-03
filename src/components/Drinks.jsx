@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import drinkIcon from '../images/mealIcon.svg';
 import './MealsAndDrinks.css';
 import './style/Alldrick.css';
 import './style/Drink.css';
@@ -51,9 +50,6 @@ export default function Drinks() {
 
   return (
     <main className="Recipe__main">
-      <div className="Recipe__title__container">
-        <img src={ drinkIcon } alt="meal icon" />
-      </div>
       <div className="Recipe__category__container">
         <label htmlFor="Alldrick" className="Alldrick" data-testid="All-category-filter">
           <input
