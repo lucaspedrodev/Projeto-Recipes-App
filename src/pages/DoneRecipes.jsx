@@ -18,11 +18,11 @@ export default function DoneRecipes() {
   }, []);
 
   const filterByValue = ({ target }) => {
-    const { value } = target;
-    if (value === 'buttonMeal') {
+    const { alt } = target;
+    if (alt === 'buttonMeal') {
       const filterMeals = localStorageRecipes.filter((e) => e.type.includes('meal'));
       setLocalStorageRecipes(filterMeals);
-    } else if (value === 'buttonDrink') {
+    } else if (alt === 'buttonDrink') {
       const filterDrinks = localStorageRecipes.filter((e) => e.type.includes('drink'));
       setLocalStorageRecipes(filterDrinks);
     } else {
@@ -38,13 +38,11 @@ export default function DoneRecipes() {
           <button
             data-testid="filter-by-all-btn"
             type="button"
-            name="all"
             value="buttonAll"
-            id="all"
-            onClick={ filterByValue }
+            onClick={ (event) => filterByValue(event) }
             className="Recipes__buttons"
           >
-            <img src={ All } alt="all" />
+            <img src={ All } alt="buttonAll" />
           </button>
           <p>All</p>
         </div>
@@ -53,10 +51,10 @@ export default function DoneRecipes() {
             data-testid="filter-by-meal-btn"
             type="button"
             value="buttonMeal"
-            onClick={ filterByValue }
+            onClick={ (event) => filterByValue(event) }
             className="Recipes__buttons"
           >
-            <img src={ foods } alt="foods" />
+            <img src={ foods } alt="buttonMeal" />
           </button>
           <p>Food</p>
         </div>
@@ -65,10 +63,10 @@ export default function DoneRecipes() {
             data-testid="filter-by-drink-btn"
             type="button"
             value="buttonDrink"
-            onClick={ filterByValue }
+            onClick={ (event) => filterByValue(event) }
             className="Recipes__buttons"
           >
-            <img src={ drinks } alt="drinks" />
+            <img src={ drinks } alt="buttonDrink" />
           </button>
           <p>Drinks</p>
         </div>

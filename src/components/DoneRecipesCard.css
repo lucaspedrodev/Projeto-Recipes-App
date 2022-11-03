@@ -12,8 +12,7 @@
 .Recipe__horizontal__img {
   border-radius: 5px 0 0 5px;
   height: 135px;
-  margin-right: 20px;
-  width: 164px;
+  width: 144px;
 }
 
 .Card__container1 {
@@ -31,6 +30,7 @@
 .Card__btn__share {
   background: none;
   border: none;
+  margin: 0 5px;
 }
 
 .Card__top__text {
