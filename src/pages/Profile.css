@@ -1,0 +1,31 @@
+.Profile__container__email {
+  color: #1a1b1c;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 16px;
+  margin: 50px auto;
+  text-align: center;
+  width: 100%;
+}
+
+.Profile__button {
+  align-items: center;
+  background: white;
+  border: none;
+  border-bottom: 0.5px solid #b1b1b1;
+  color: #797d86;
+  display: flex;
+  font-size: 16px;
+  font-weight: 500;
+  height: 50px;
+  letter-spacing: 0.03em;
+  line-height: 16px;
+  margin: 20px auto;
+  padding-bottom: 20px;
+  text-transform: capitalize;
+  width: 70%;
+}
+
+.Profile__button img {
+  margin-right: 20px;
+}

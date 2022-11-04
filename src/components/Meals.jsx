@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import mealIcon from '../images/mealIcon.svg';
 import './MealsAndDrinks.css';
 import './style/Beef.css';
 import './style/Breakfast.css';
@@ -50,9 +49,6 @@ export default function Meals() {
 
   return (
     <main className="Recipe__main">
-      <div className="Recipe__title__container">
-        <img src={ mealIcon } alt="meal icon" />
-      </div>
       <div className="Recipe__category__container">
         <label htmlFor="all" className="All" data-testid="All-category-filter">
           <input
